@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<div th:replace="fragments/head :: head"></div>
+<title>SI Kependudukan | Lihat Data Penduduk</title>
+</head>
+
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<div class="container">
+		<br/>
+		<h3 th:text="'Lihat Data Penduduk - ' + ${penduduk.nik}'">Lihat Data Penduduk Berdasarkan NIK</h3>
+		<hr/>
+		<table>
+			<td>
+				<tr>NIK</tr>
+				<tr>Nama</tr>
+				<tr>Tempat/Tanggal Lahir</tr>
+				<tr>Alamat</tr>
+				<tr>RT/RW</tr>
+				<tr>Kelurahan/Desa</tr>
+				<tr>Kecamatan</tr>
+				<tr>Kota</tr>
+				<tr>Golongan Darah</tr>
+				<tr>Agama</tr>
+				<tr>Status Perkawinan</tr>
+				<tr>Pekerjaan</tr>
+				<tr>Kewarganegaraan</tr>
+				<tr>Status Kematian</tr>
+			</td>
+			<td>
+				<tr th:text="${penduduk.nik}"></tr>
+				<tr th:text="${penduduk.nama}">Nama</tr>
+				<tr th:text="${penduduk.tempatLahir} + ', ' + ${penduduk.getTglLahir()}">Tempat/Tanggal Lahir</tr>
+				<tr th:text="${penduduk.alamat}">Alamat</tr>
+				<tr th:text="${penduduk.rt} + '/' + ${penduduk.rw}">RT/RW</tr>
+				<tr th:text="${penduduk.namaKelurahan}">Kelurahan/Desa</tr>
+				<tr th:text="${penduduk.namaKecamatan}">Kecamatan</tr>
+				<tr th:text="${penduduk.namaKota}">Kota</tr>
+				<tr th:text="${penduduk.golonganDarah}">Golongan Darah</tr>
+				<tr th:text="${penduduk.agama}">Agama</tr>
+				<tr th:text="${penduduk.statusPerkawinan}">Status Perkawinan</tr>
+				<tr th:text="${penduduk.pekerjaan}">Pekerjaan</tr>
+				<tr th:text="${penduduk.isWni}?'WNI':'WNA'">Kewarganegaraan</tr>
+				<tr th:text="${penduduk.isWafat}?'Wafat':'Hidup'">Status Kematian</tr>
+			</td>
+		</table>
+	</div>
+</body>
+
+<footer>
+	<div th:replace="fragments/footer :: footer"></div>
+</footer>
+</html>
