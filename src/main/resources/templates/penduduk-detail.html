@@ -11,41 +11,65 @@
 
 	<div class="container">
 		<br/>
-		<h3 th:text="'Lihat Data Penduduk - ' + ${penduduk.nik}'">Lihat Data Penduduk Berdasarkan NIK</h3>
+		<h3 th:text="'Lihat Data Penduduk - ' + ${penduduk.nik}">Lihat Data Penduduk Berdasarkan NIK</h3>
 		<hr/>
 		<table>
-			<td>
-				<tr>NIK</tr>
-				<tr>Nama</tr>
-				<tr>Tempat/Tanggal Lahir</tr>
-				<tr>Alamat</tr>
-				<tr>RT/RW</tr>
-				<tr>Kelurahan/Desa</tr>
-				<tr>Kecamatan</tr>
-				<tr>Kota</tr>
-				<tr>Golongan Darah</tr>
-				<tr>Agama</tr>
-				<tr>Status Perkawinan</tr>
-				<tr>Pekerjaan</tr>
-				<tr>Kewarganegaraan</tr>
-				<tr>Status Kematian</tr>
-			</td>
-			<td>
-				<tr th:text="${penduduk.nik}"></tr>
-				<tr th:text="${penduduk.nama}">Nama</tr>
-				<tr th:text="${penduduk.tempatLahir} + ', ' + ${penduduk.getTglLahir()}">Tempat/Tanggal Lahir</tr>
-				<tr th:text="${penduduk.alamat}">Alamat</tr>
-				<tr th:text="${penduduk.rt} + '/' + ${penduduk.rw}">RT/RW</tr>
-				<tr th:text="${penduduk.namaKelurahan}">Kelurahan/Desa</tr>
-				<tr th:text="${penduduk.namaKecamatan}">Kecamatan</tr>
-				<tr th:text="${penduduk.namaKota}">Kota</tr>
-				<tr th:text="${penduduk.golonganDarah}">Golongan Darah</tr>
-				<tr th:text="${penduduk.agama}">Agama</tr>
-				<tr th:text="${penduduk.statusPerkawinan}">Status Perkawinan</tr>
-				<tr th:text="${penduduk.pekerjaan}">Pekerjaan</tr>
-				<tr th:text="${penduduk.isWni}?'WNI':'WNA'">Kewarganegaraan</tr>
-				<tr th:text="${penduduk.isWafat}?'Wafat':'Hidup'">Status Kematian</tr>
-			</td>
+			<tr>
+				<td style="width: 40%">NIK</td>
+				<td th:text="${penduduk.nik}">NIK</td>
+			</tr>
+			<tr>
+				<td style="width: 40%">Nama</td>
+				<td th:text="${penduduk.nama}">Nama</td>
+			</tr>
+			<tr>
+				<td style="width: 40%">Tempat/Tanggal Lahir</td>
+				<td th:text="${penduduk.tempatLahir} + ', ' + ${penduduk.getTglLahir()}">Tempat/Tanggal Lahir</td>
+			</tr>
+			<tr>
+				<td style="width: 40%">Alamat</td>
+				<td th:text="${penduduk.alamat}">Alamat</td>
+			</tr>
+			<tr>
+				<td style="width: 40%">RT/RW</td>
+				<td th:text="${penduduk.rt} + '/' + ${penduduk.rw}">RT/RW</td>
+			</tr>
+			<tr>
+				<td style="width: 40%">Kelurahan/Desa</td>
+				<td th:text="${penduduk.namaKelurahan}">Kelurahan/Desa</td>
+			</tr>
+			<tr>
+				<td style="width: 40%">Kecamatan</td>
+				<td th:text="${penduduk.namaKecamatan}">Kecamatan</td>
+			</tr>
+			<tr>
+				<td style="width: 40%">Kota</td>
+				<td th:text="${penduduk.namaKota}">Kota</td>
+			</tr>
+			<tr>
+				<td style="width: 40%">Golongan Darah</td>
+				<td th:text="${penduduk.golonganDarah}">Golongan Darah</td>
+			</tr>
+			<tr>
+				<td style="width:40%">Agama</td>
+				<td th:text="${penduduk.agama}">Agama</td>
+			</tr>
+			<tr>
+				<td style="width:40%">Status Perkawinan</td>
+				<td th:text="${penduduk.statusPerkawinan}">Status Perkawinan</td>
+			</tr>
+			<tr>
+				<td style="width:40%">Pekerjaan</td>
+				<td th:text="${penduduk.pekerjaan}">Pekerjaan</td>
+			</tr>
+			<tr>
+				<td style="width:40%">Kewarganegaraan</td>
+				<td th:text="${penduduk.isWni}==1?'WNI':'WNA'">Kewarganegaraan</td>
+			</tr>
+			<tr>
+				<td style="width:40%">Status Kematian</td>
+				<td th:text="${penduduk.isWafat}==1?'Wafat':'Hidup'">Status Kematian</td>
+			</tr>
 		</table>
 	</div>
 </body>

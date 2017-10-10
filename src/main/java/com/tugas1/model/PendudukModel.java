@@ -19,15 +19,15 @@ public class PendudukModel {
 	private String nama;
 	private String tempatLahir;
 	private Date tanggalLahir;
-	private boolean jenisKelamin;
-	private boolean isWni;
+	private int jenisKelamin;
+	private int isWni;
 	private int idKeluarga;
 	private String agama;
 	private String pekerjaan;
 	private String statusPerkawinan;
 	private String statusDalamKeluarga;
 	private String golonganDarah;
-	private boolean isWafat;
+	private int isWafat;
 	
 	@Builder.Default private String alamat = "Alamat Null";
 	@Builder.Default private String rt = "00";

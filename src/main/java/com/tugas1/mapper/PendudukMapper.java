@@ -10,7 +10,7 @@ import com.tugas1.model.PendudukModel;
 
 @Mapper
 public interface PendudukMapper {
-	@Select("SELECT * FROM penduduk WHERE nik=#{nik}")
+	@Select("SELECT * FROM penduduk WHERE nik = #{nik}")
 	@Results(value = {
 			@Result(property="id", column="id"),
 			@Result(property="nik", column="nik"),
@@ -28,5 +28,4 @@ public interface PendudukMapper {
 			@Result(property="isWafat", column="is_wafat")
 	})
 	PendudukModel selectPenduduk(@Param(value="nik") String nik);
-	
 }
