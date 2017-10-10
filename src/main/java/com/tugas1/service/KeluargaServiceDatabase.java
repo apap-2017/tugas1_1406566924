@@ -1,5 +1,7 @@
 package com.tugas1.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +17,21 @@ public class KeluargaServiceDatabase implements KeluargaService {
 	private KeluargaMapper keluargaMapper;
 
 	@Override
-	public KeluargaModel getKeluarga(int idKeluarga) {
+	public KeluargaModel getKeluargaById(int idKeluarga) {
 		log.info("get keluarga with id {}", idKeluarga);
-		return keluargaMapper.selectKeluarga(idKeluarga);
+		return keluargaMapper.selectKeluargaById(idKeluarga);
+	}
+
+	@Override
+	public KeluargaModel getKeluargaByNKK(String nomorKK) {
+		log.info("get keluarga with nomor kk {}", nomorKK);
+		return keluargaMapper.selectKeluargaByNKK(nomorKK);
+	}
+
+	@Override
+	public List<KeluargaModel> getAllKeluarga() {
+		log.info("get all keluarga");
+		return keluargaMapper.selectAllKeluarga();
 	}
 
 	

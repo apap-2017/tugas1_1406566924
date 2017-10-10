@@ -3,7 +3,7 @@
 
 <head>
 <div th:replace="fragments/head :: head"></div>
-<title>Lihat Data Penduduk | SI Kependudukan</title>
+<title>Lihat Data Keluarga | SI Kependudukan</title>
 </head>
 
 <body>
@@ -11,9 +11,9 @@
 
 	<div class="container">
 		<br/>
-		<h3 th:text="'Lihat Data Penduduk - ' + ${nik}">Lihat Data Penduduk Berdasarkan NIK</h3>
+		<h3 th:text="'Lihat Data Keluarga - ' + ${nomorKK}">Lihat Data Keluarga Berdasarkan NKK</h3>
 		<hr/>
-		<h4 th:text="'Penduduk dengan NIK ' + ${nik} + ' tidak dapat ditemukan.'"></h4>
+		<h4 th:text="'Keluarga dengan Nomor KK ' + ${nomorKK} + ' tidak dapat ditemukan.'"></h4>
 	</div>
 </body>
 

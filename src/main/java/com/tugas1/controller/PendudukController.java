@@ -1,5 +1,7 @@
 package com.tugas1.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +46,7 @@ public class PendudukController {
 		log.info("berhasil get penduduk");
 		
 		if(penduduk != null) {
-			KeluargaModel km = keluargaDAO.getKeluarga(penduduk.getIdKeluarga());
+			KeluargaModel km = keluargaDAO.getKeluargaById(penduduk.getIdKeluarga());
 			penduduk.setAlamat(km.getAlamat());
 			penduduk.setRt(km.getRt());
 			penduduk.setRw(km.getRw());
@@ -67,5 +69,13 @@ public class PendudukController {
 			model.addAttribute("nik", nik);
 			return "penduduk-tidak-ditemukan";
 		}
+	}
+	
+	@RequestMapping("/penduduk/tambah")
+	public String addPenduduk(Model model) {
+		List<KeluargaModel> listKeluarga = keluargaDAO.getAllKeluarga();
+		model.addAttribute("listKeluarga", listKeluarga);
+		
+		return "penduduk-tambah";
 	}
 }

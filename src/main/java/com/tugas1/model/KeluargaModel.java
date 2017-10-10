@@ -1,5 +1,7 @@
 package com.tugas1.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,4 +19,11 @@ public class KeluargaModel {
 	private String rw;
 	private int idKelurahan;
 	private boolean isTidakBerlaku;
+	private List<PendudukModel> anggotaKeluarga;
+	
+	@Builder.Default private String namaKelurahan = "Kelurahan Null";
+	@Builder.Default private String namaKecamatan = "Kecamatan Null";
+	@Builder.Default private String namaKota = "Kota Null";
+	@Builder.Default private String kodePos = "00000";
+	
 }

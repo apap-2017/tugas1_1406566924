@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<div th:replace="fragments/head :: head"></div>
+<title>Lihat Data Keluarga | SI Kependudukan</title>
+</head>
+
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<div class="container">
+		<br/>
+		<h3 th:text="'Lihat Data Keluarga - ' + ${keluarga.nomorKK}">Lihat Data keluarga Berdasarkan NIK</h3>
+		<hr/>
+		<table style="width: 100%;">
+			<tr>
+				<td style="width: 20%">NKK</td>
+				<td th:text="${keluarga.nomorKK}">NKK</td>
+			</tr>
+			<tr>
+				<td style="width: 30%">Alamat</td>
+				<td th:text="${keluarga.alamat}">Alamat</td>
+			</tr>
+			<tr>
+				<td style="width: 30%">RT/RW</td>
+				<td th:text="${keluarga.rt} + '/' + ${keluarga.rw}">RT/RW</td>
+			</tr>
+			<tr>
+				<td style="width: 30%">Kelurahan/Desa</td>
+				<td th:text="${keluarga.namaKelurahan}">Kelurahan/Desa</td>
+			</tr>
+			<tr>
+				<td style="width: 30%">Kecamatan</td>
+				<td th:text="${keluarga.namaKecamatan}">Kecamatan</td>
+			</tr>
+			<tr>
+				<td style="width: 30%">Kota</td>
+				<td th:text="${keluarga.namaKota}">Kota</td>
+			</tr>
+		</table>
+		<br/>
+		<table style="width: 100%" class="table table-hover">
+			<thead>
+				<tr>
+					<th class="text-center" th:text="'No.'">No.</th>
+					<th class="text-center" th:text="'Nama Lengkap'">Nama Lengkap</th>
+					<th class="text-center" th:text="'NIK'">NIK</th>
+					<th class="text-center" th:text="'Jenis Kelamin'">Jenis Kelamin</th>
+					<th class="text-center" th:text="'Tempat Lahir'">Tempat Lahir</th>
+					<th class="text-center" th:text="'Tanggal Lahir'">Tanggal Lahir</th>
+					<th class="text-center" th:text="'Agama'">Agama</th>
+					<th class="text-center" th:text="'Pekerjaan'">Pekerjaan</th>
+					<th class="text-center" th:text="'Status Perkawinan'">Status Perkawinan</th>
+					<th class="text-center" th:text="'Status dalam Keluarga'">Status dalam Keluarga</th>
+					<th class="text-center" th:text="'Kewarganegaraan'">Kewarganegaraan</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="anggota, iterationStatus: ${keluarga.anggotaKeluarga}">
+					<td class="text-center" th:text="${iterationStatus.count}">1</td>
+					<td th:text="${anggota.nama}">Nama</td>
+					<td class="text-center" th:text="${anggota.nik}">NIK</td>
+					<td class="text-center" th:text="${anggota.jenisKelamin}==1?'Wanita':'Pria'">Jenis Kelamin</td>
+					<td class="text-center" th:text="${anggota.tempatLahir}">Tempat Lahir</td>
+					<td class="text-center" th:text="${anggota.getTglLahirAngka()}">Tanggal Lahir</td>
+					<td class="text-center" th:text="${anggota.agama}">Agama</td>
+					<td class="text-center" th:text="${anggota.pekerjaan}">Pekerjaan</td>
+					<td class="text-center" th:text="${anggota.statusPerkawinan}">Status Perkawinan</td>
+					<td class="text-center" th:text="${anggota.statusDalamKeluarga}">Status dalam Keluarga</td>
+					<td class="text-center" th:text="${anggota.isWni}==1?'WNI':'WNA'">Kewarganegaraan</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+<footer>
+	<div th:replace="fragments/footer :: footer"></div>
+</footer>
+</html>
