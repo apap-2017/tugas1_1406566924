@@ -17,10 +17,7 @@ public class PendudukServiceDatabase implements PendudukService {
 	@Override
 	public PendudukModel getPenduduk(String nik) {
 		log.info("get penduduk with nik {}", nik);
-		log.info("{}", pendudukMapper);
-		PendudukModel pm = pendudukMapper.selectPenduduk(nik);
-		log.info("berhasil query penduduk");
-		return pm;
+		return pendudukMapper.selectPenduduk(nik);
 	}
 
 	
