@@ -36,7 +36,8 @@ public class PendudukController {
 	KotaService kotaDAO;
 
 	@RequestMapping("/")
-	public String index() {
+	public String index(Model model) {
+		model.addAttribute("title", "Home");
 		return "index";
 	}
 	
@@ -63,10 +64,13 @@ public class PendudukController {
 			System.out.println(penduduk.getNamaKota());
 			
 			model.addAttribute("penduduk", penduduk);
+			
+			model.addAttribute("title", "Lihat Data Penduduk dengan NIK " + nik);
 			return "penduduk-detail";
 		}
 		else {
 			model.addAttribute("nik", nik);
+			model.addAttribute("title", "Data Penduduk Tidak Ditemukan");
 			return "penduduk-tidak-ditemukan";
 		}
 	}
@@ -76,6 +80,7 @@ public class PendudukController {
 		List<KeluargaModel> listKeluarga = keluargaDAO.getAllKeluarga();
 		model.addAttribute("listKeluarga", listKeluarga);
 		
+		model.addAttribute("title", "Tambah Penduduk");
 		return "penduduk-tambah";
 	}
 }

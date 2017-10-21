@@ -48,9 +48,11 @@ public class KeluargaController {
 			keluarga.setNamaKota(kt.getNamaKota());
 			
 			model.addAttribute("keluarga", keluarga);
+			model.addAttribute("title", "Lihat Data Keluarga dengan NKK " + nomorKK);
 			return "keluarga-detail";
 		} else {
 			model.addAttribute("nomorKK", nomorKK);
+			model.addAttribute("title", "Data Keluarga Tidak Ditemukan");
 			return "keluarga-tidak-ditemukan";
 		}
 	}

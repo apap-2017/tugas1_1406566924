@@ -3,7 +3,6 @@
 
 <head>
 <div th:replace="fragments/head :: head"></div>
-<title>SI Kependudukan | Home</title>
 </head>
 
 <body>
@@ -17,19 +16,20 @@
 		<hr />
 
 		<h3>Lihat Data Penduduk Berdasarkan NIK</h3>
-		<form class="form-group">
+		<form class="form-group" action="/penduduk" method="GET">
 			<label>Masukkan Nomor Induk Kependudukan</label> <input type="text"
-				class="form-control col-4" />
+				class="form-control col-4" name="nik"/>
+			<button type="submit" class="btn btn-primary">Lihat</button>
 		</form>
-		<button type="submit" class="btn btn-primary">Lihat</button>
 		<hr />
 
 		<h3>Lihat Data Keluarga Berdasarkan NKK</h3>
-		<form class="form-group">
+		<form class="form-group" action="/keluarga" method="GET">
 			<label>Masukkan Nomor Kartu Keluarga</label> <input type="text"
-				class="form-control col-4" />
+				class="form-control col-4" name="nkk"/>
+			<button type="submit" class="btn btn-primary">Lihat</button>
 		</form>
-		<button type="submit" class="btn btn-primary">Lihat</button>
+		
 		<hr />
 	</div>
 </body>

@@ -1,27 +1,26 @@
 <head th:fragment="head">
-<link rel="icon" href="/img/user.png" type="image/x-icon" />
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<title th:text="${title} + '| SI Kependudukan'"></title>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
-<link type="text/css" rel="stylesheet"
-	href="/css/bootstrap-theme.min.css" />
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
 <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap-theme.css" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap-theme.min.css" />
+<link type="text/css" rel="stylesheet" href="/css/font-awesome.css" />
 <link type="text/css" rel="stylesheet" href="/css/font-awesome.min.css" />
 
-<script type="text/javascript" charset="utf8" src="js/jQuery.js"></script>
-<script type="text/javascript" charset="utf8" src="js/dataTable.js"></script>
+<link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/datatables/css/jquery.dataTables.min.css" />
 
-<script src="/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/datatables/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="/datatables/js/jquery.dataTables.min.js"></script>
+
 <script type="text/javascript" charset="utf8">
 	$(document).ready(function() {
 		$('#table').DataTable();
 	});
 </script>
-
-<link rel="stylesheet" type="text/css"
-	href="/css/jquery.dataTables.min.css" />
 </head>

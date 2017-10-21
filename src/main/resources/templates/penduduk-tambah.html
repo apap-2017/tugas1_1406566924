@@ -3,7 +3,6 @@
 
 <head>
 <div th:replace="fragments/head :: head"></div>
-<title>Tambah Penduduk | SI Kependudukan</title>
 </head>
 
 <body>
@@ -11,71 +10,112 @@
 
 	<div class="container">
 		<br />
-		<h3 th:text="'Lihat Data Penduduk - ' + ${penduduk.nik}">Lihat
-			Data Penduduk Berdasarkan NIK</h3>
+		<h3 th:text="'Tambah Penduduk'">Tambah Penduduk</h3>
+		<p style="color: red">
+			<small><i>*) Wajib diisi</i></small>
+		</p>
 		<hr />
 		<div class="form-group">
-			<label class="control-label" style="width: 30%">Nama</label>
+			<label class="control-label" style="width: 30%">Nama*</label>
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
-				<input type="text" name="nama" class="form-control" />
+				<input type="text" name="nama" class="form-control"
+					required="required" />
 			</div>
 		</div>
-		<tr>
-			<td style="width: 30%">Nama</td>
-			<td th:text="${penduduk.nama}">Nama</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">Tempat/Tanggal Lahir</td>
-			<td
-				th:text="${penduduk.tempatLahir} + ', ' + ${penduduk.getTglLahir()}">Tempat/Tanggal
-				Lahir</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">Alamat</td>
-			<td th:text="${penduduk.alamat}">Alamat</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">RT/RW</td>
-			<td th:text="${penduduk.rt} + '/' + ${penduduk.rw}">RT/RW</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">Kelurahan/Desa</td>
-			<td th:text="${penduduk.namaKelurahan}">Kelurahan/Desa</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">Kecamatan</td>
-			<td th:text="${penduduk.namaKecamatan}">Kecamatan</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">Kota</td>
-			<td th:text="${penduduk.namaKota}">Kota</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">Golongan Darah</td>
-			<td th:text="${penduduk.golonganDarah}">Golongan Darah</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">Agama</td>
-			<td th:text="${penduduk.agama}">Agama</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">Status Perkawinan</td>
-			<td th:text="${penduduk.statusPerkawinan}">Status Perkawinan</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">Pekerjaan</td>
-			<td th:text="${penduduk.pekerjaan}">Pekerjaan</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">Kewarganegaraan</td>
-			<td th:text="${penduduk.isWni}==1?'WNI':'WNA'">Kewarganegaraan</td>
-		</tr>
-		<tr>
-			<td style="width: 30%">Status Kematian</td>
-			<td th:text="${penduduk.isWafat}==1?'Wafat':'Hidup'">Status
-				Kematian</td>
-		</tr>
+		<div class="form-group">
+			<label class="control-label" style="width: 30%">Tempat Lahir*</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
+				<input type="text" name="tempatLahir" class="form-control"
+					required="required" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" style="width: 30%">Tanggal
+				Lahir*</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
+				<input type="text" id="date" name="tanggalLahir"
+					class="form-control" required="required" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" style="width: 30%">Golongan
+				Darah*</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
+				<select class="form-control" id="golonganDarah" name="golonganDarah"
+					required="required" data-bv-notempty="true"
+					data-bv-notempty-message="*Golongan darah harus dipilih">
+					<option disabled="true" selected="selected" val=""
+						th:text="'Pilih golongan darah...'"></option>
+					<option th:value="'AB'" th:text="'AB'"></option>
+					<option th:value="'A'" th:text="'A'"></option>
+					<option th:value="'B'" th:text="'B'"></option>
+					<option th:value="'O'" th:text="'O'"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" style="width: 30%">Agama*</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
+				<input type="text" name="agama" class="form-control"
+					required="required" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" style="width: 30%">Status
+				Perkawinan*</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
+				<select class="form-control" id="statusPerkawinan"
+					name="statusPerkawinan" required="required" data-bv-notempty="true"
+					data-bv-notempty-message="*Status perkawinan harus dipilih">
+					<option disabled="true" selected="selected" val=""
+						th:text="'Pilih status perkawinan...'"></option>
+					<option th:value="'Belum Kawin'" th:text="'Belum Kawin'"></option>
+					<option th:value="'Kawin'" th:text="'Kawin'"></option>
+					<option th:value="'Cerai Hidup'" th:text="'Cerai Hidup'"></option>
+					<option th:value="'Cerai Mati'" th:text="'Cerai Mati'"></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" style="width: 30%">Kewarganegaraan*</label>
+			<div class="input-group">
+				<input type="radio" name="kewarganegaraan" class="form-control col-md-3 col-sm-3 col-xs-6"
+					required="required" th:value="1" th:text="'WNI'" /> <input
+					type="radio" name="kewarganegaraan" class="form-control col-md-3 col-sm-3 col-xs-6"
+					required="required" th:value="0" th:text="'WNA'" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" style="width: 30%">Status
+				Kematian*</label>
+			<div class="input-group">
+				<input type="radio" name="statusKematian" class="form-control col-md-3 col-sm-3 col-xs-6"
+					required="required" th:value="0" th:text="'Hidup'" /> <input 
+					type="radio" name="statusKematian" class="form-control col-md-3 col-sm-3 col-xs-6"
+					required="required" th:value="1" th:text="'Mati'" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" style="width: 30%">Keluarga*</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
+				<select class="form-control" id="idKeluarga" name="idKeluarga"
+					required="required" data-bv-notempty="true"
+					data-bv-notempty-message="*Keluarga harus dipilih">
+					<option disabled="true" selected="selected" val=""
+						th:text="'Pilih keluarga berdasarkan NKK...'"></option>
+					<div th:each="keluarga, iterationStatus: ${listKeluarga}">
+						<option th:value="${keluarga.id}" th:text="${keluarga.nomorKK}"></option>
+					</div>
+				</select>
+			</div>
+		</div>
 	</div>
 </body>
 
