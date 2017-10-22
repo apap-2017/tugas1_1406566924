@@ -28,4 +28,14 @@ public interface KelurahanMapper {
 			@Result(property="namaKelurahan", column="nama_kelurahan")
 	})
 	List<KelurahanModel> selectAllKelurahanByIdKecamatan(@Param(value="idKecamatan") int idKecamatan);
+	
+	@Select("SELECT * FROM kelurahan WHERE nama_kelurahan = #{namaKelurahan}")
+	@Results(value = {
+			@Result(property="idKecamatan", column="id_kecamatan"),
+			@Result(property="kodeKelurahan", column="kode_kelurahan"),
+			@Result(property="namaKelurahan", column="nama_kelurahan"),
+			@Result(property="kodePos", column="kode_pos"),
+			@Result(property="id", column="id")
+	})
+	KelurahanModel selectKelurahanByNama(@Param(value="namaKelurahan") String namaKelurahan);
 }

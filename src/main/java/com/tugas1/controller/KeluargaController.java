@@ -1,6 +1,7 @@
 package com.tugas1.controller;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +18,7 @@ import com.tugas1.model.KecamatanModel;
 import com.tugas1.model.KeluargaModel;
 import com.tugas1.model.KelurahanModel;
 import com.tugas1.model.KotaModel;
+import com.tugas1.model.PendudukModel;
 import com.tugas1.service.KecamatanService;
 import com.tugas1.service.KeluargaService;
 import com.tugas1.service.KelurahanService;
@@ -86,14 +89,15 @@ public class KeluargaController {
 	public String addKeluargaSubmit(Model model, @RequestParam(value="alamat", required=true) String alamat, 
 			@RequestParam(value="rt", required=true) String rt,
 			@RequestParam(value="rw", required=true) String rw,
-			@RequestParam(value="kelurahan", required=true) int idKelurahan) {
+			@RequestParam(value="kelurahan", required=true) String namaKelurahan) {
 	
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date tanggalPembuatan = new Date();
 		
 		String hariIni = format.format(tanggalPembuatan);
 		
-		KelurahanModel kelurahan = kelurahanDAO.getKelurahan(idKelurahan);
+		KelurahanModel kelurahan = kelurahanDAO.getKelurahanByNama(namaKelurahan.toUpperCase());
+		System.out.println(kelurahan.getKodeKelurahan());
 		
 		String nomorKK = kelurahan.getKodeKelurahan().substring(0, 6);
 		
@@ -101,19 +105,22 @@ public class KeluargaController {
 		String[] tglPembuatan = hariIni.split("-");
 		String tanggal = tglPembuatan[2];
 		String bulan = tglPembuatan[1];
-		String tahun = tglPembuatan[0].substring(2, 3);
+		String tahun = tglPembuatan[0].substring(2);
 		
 		nomorKK = nomorKK + tanggal + bulan + tahun;
+		System.out.println(nomorKK);
 		
 		//cek apa ada yang dibuat di kelurahan & tanggal pembuatan yang sama untuk tentuin 4 digit terakhir (urutan)
 		String nkkSama = keluargaDAO.getNkkSamaKeluarga(nomorKK);
 		if(nkkSama == null) {
 			nomorKK = nomorKK + "0001";
+			System.out.println(nomorKK);
 		}
 		else {
 			int urutan = Integer.parseInt(nkkSama.substring(12)) + 1;
 			String f = new DecimalFormat("0000").format(urutan);
 			nomorKK = nomorKK + f;
+			System.out.println(nomorKK);
 		}
 		
 		int id = keluargaDAO.getIdKeluargaTerakhir() + 1;
@@ -124,12 +131,83 @@ public class KeluargaController {
 		keluarga.setAlamat(alamat);
 		keluarga.setRt(rt);
 		keluarga.setRw(rw);
-		keluarga.setIdKelurahan(idKelurahan);
+		keluarga.setIdKelurahan(kelurahan.getId());
 		
-		// keluargaDAO.addKeluarga(keluarga);
+		keluargaDAO.addKeluarga(keluarga);
 		
 		model.addAttribute("nkk", nomorKK);
 		model.addAttribute("title", "Tambah Keluarga Berhasil");
 		return "keluarga-tambah-berhasil";
+	}
+	
+	@RequestMapping("/keluarga/ubah/{nkk}")
+	public String editKeluarga(Model model, @PathVariable(value = "nkk") String nomorKK) {
+		KeluargaModel keluarga = keluargaDAO.getKeluargaByNKK(nomorKK);
+		KelurahanModel kelurahan = kelurahanDAO.getKelurahan(keluarga.getIdKelurahan());
+		KecamatanModel kecamatan = kecamatanDAO.getKecamatan(kelurahan.getIdKecamatan());
+		KotaModel kota = kotaDAO.getKota(kecamatan.getIdKota());
+		
+		keluarga.setNamaKelurahan(kelurahan.getNamaKelurahan());
+		keluarga.setNamaKecamatan(kecamatan.getNamaKecamatan());
+		keluarga.setNamaKota(kota.getNamaKota());
+
+		model.addAttribute("nkkLama", nomorKK);
+		model.addAttribute("keluarga", keluarga);
+		model.addAttribute("title", "Ubah Keluarga");
+		return "keluarga-ubah";
+	}
+	
+	@RequestMapping("/keluarga/ubah/submit")
+	public String editPendudukSubmit(Model model, @RequestParam(value = "nkkLama", required = true) String nkkLama,
+			@RequestParam(value = "alamat", required = true) String alamat,
+			@RequestParam(value = "rt", required = true) String rt,
+			@RequestParam(value = "rw", required = true) String rw,
+			@RequestParam(value = "kelurahan", required = true) String namaKelurahan) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date tanggalPembuatan = new Date();
+		
+		String hariIni = format.format(tanggalPembuatan);
+		
+		KelurahanModel kelurahan = kelurahanDAO.getKelurahanByNama(namaKelurahan.toUpperCase());
+		System.out.println(kelurahan.getKodeKelurahan());
+		
+		String nomorKK = kelurahan.getKodeKelurahan().substring(0, 6);
+		
+		// split tanggal pembuatan/hari ini
+		String[] tglPembuatan = hariIni.split("-");
+		String tanggal = tglPembuatan[2];
+		String bulan = tglPembuatan[1];
+		String tahun = tglPembuatan[0].substring(2);
+		
+		nomorKK = nomorKK + tanggal + bulan + tahun;
+		System.out.println(nomorKK);
+		
+		//cek apa ada yang dibuat di kelurahan & tanggal pembuatan yang sama untuk tentuin 4 digit terakhir (urutan)
+		String nkkSama = keluargaDAO.getNkkSamaKeluarga(nomorKK);
+		if(nkkSama == null) {
+			nomorKK = nomorKK + "0001";
+			System.out.println(nomorKK);
+		} else if (nomorKK.equals(nkkLama)) {
+			nomorKK = nkkLama;
+		} else {
+			int urutan = Integer.parseInt(nkkSama.substring(12)) + 1;
+			String f = new DecimalFormat("0000").format(urutan);
+			nomorKK = nomorKK + f;
+			System.out.println(nomorKK);
+		}
+		
+		
+		KeluargaModel keluarga = keluargaDAO.getKeluargaByNKK(nomorKK);
+		keluarga.setNomorKK(nomorKK);
+		keluarga.setAlamat(alamat);
+		keluarga.setRt(rt);
+		keluarga.setRw(rw);
+		keluarga.setIdKelurahan(kelurahan.getId());
+
+		keluargaDAO.editKeluarga(keluarga);
+
+		model.addAttribute("nkkLama", nkkLama);
+		model.addAttribute("title", "Ubah Penduduk Berhasil");
+		return "keluarga-ubah-berhasil";
 	}
 }

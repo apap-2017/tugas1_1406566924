@@ -68,14 +68,14 @@ public interface KeluargaMapper {
 	})
 	List<KeluargaModel> selectAllKeluarga();
 	
-	@Select("SELECT nomor_kk FROM keluarga WHERE nomor_kk LIKE '#{nomorKK}%' ORDER BY id DESC LIMIT 1")
+	@Select("SELECT nomor_kk FROM keluarga WHERE nomor_kk LIKE '${nomorKK}%' ORDER BY id DESC LIMIT 1")
 	String selectNkkSamaKeluarga(@Param(value="nomorKK") String nomorKK);
 	
 	@Select("SELECT id FROM keluarga ORDER BY id DESC LIMIT 1")
 	int selectIdKeluargaTerakhir();
 	
 	@Insert("INSERT INTO keluarga (id, nomor_kk, alamat, rt, rw, id_kelurahan, is_tidak_berlaku) VALUES (#{id}, #{nomorKK}, "
-			+ "#{alamat}, #{rt}, #{rw}, #{idKelurahan})")
+			+ "#{alamat}, #{rt}, #{rw}, #{idKelurahan}, 0)")
 	void insertKeluarga(KeluargaModel keluarga);
 	
 	@Update("UPDATE keluarga SET nomor_kk=#{nomorKK}, alamat=#{alamat}, rt=#{rt}, rw=#{rw}, id_kelurahan=#{idKelurahan}, "
