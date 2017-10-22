@@ -52,5 +52,17 @@ public class PendudukServiceDatabase implements PendudukService {
 		return pendudukMapper.selectAllPendudukByIdKelurahan(idKelurahan);
 	}
 
+	@Override
+	public PendudukModel getPendudukTermudaByIdKelurahan(int idKelurahan) {
+		log.info("get penduduk termuda in id kelurahan {}", idKelurahan);
+		return pendudukMapper.selectPendudukTermudaByIdKelurahan(idKelurahan);
+	}
+
+	@Override
+	public PendudukModel getPendudukTerturaByIdKelurahan(int idKelurahan) {
+		log.info("get penduduk tertua in id kelurahan {}", idKelurahan);
+		return pendudukMapper.selectPendudukTertuaByIdKelurahan(idKelurahan);
+	}
+
 	
 }

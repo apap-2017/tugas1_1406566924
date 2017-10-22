@@ -8,6 +8,8 @@ public interface PendudukService {
 	List<PendudukModel> getAllPendudukByIdKelurahan(int idKelurahan);
 	
 	PendudukModel getPenduduk(String nik);
+	PendudukModel getPendudukTermudaByIdKelurahan(int idKelurahan);
+	PendudukModel getPendudukTerturaByIdKelurahan(int idKelurahan);
 	
 	void addPenduduk(PendudukModel penduduk);
 	void editPenduduk(PendudukModel penduduk);

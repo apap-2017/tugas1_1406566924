@@ -315,6 +315,13 @@ public class PendudukController {
 
 					List<PendudukModel> listPenduduk = pendudukDAO.getAllPendudukByIdKelurahan(kl);
 					model.addAttribute("listPenduduk", listPenduduk);
+					
+					PendudukModel pendudukMuda = pendudukDAO.getPendudukTermudaByIdKelurahan(kl);
+					model.addAttribute("pendudukMuda", pendudukMuda);
+					
+					PendudukModel pendudukTua = pendudukDAO.getPendudukTerturaByIdKelurahan(kl);
+					model.addAttribute("pendudukTua", pendudukTua);
+					
 					return "penduduk-daftar";
 				}
 			}

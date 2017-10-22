@@ -11,15 +11,15 @@
 	<div class="container">
 		<div class="container">
 			<br />
-			<div th:if="${idKota == null}">
+			<div th:if="${kt == null}">
 				<h3 th:text="'Cari Data Penduduk Berdasarkan Kota'">Cari Data
 					Penduduk Berdasarkan Kota</h3>
 			</div>
-			<div th:if="${idKota != null AND idKecamatan == null}">
+			<div th:if="${kt != null AND kc == null}">
 				<h3 th:text="'Cari Data Penduduk Berdasarkan Kecamatan di ' + ${namaKota}">Cari
 					Data Penduduk Berdasarkan Kecamatan di Kota</h3>
 			</div>
-			<div th:if="${idKota != null AND idKecamatan != null AND idKelurahan == null}">
+			<div th:if="${kt != null AND kc != null AND kl == null}">
 				<h3 th:text="'Cari Data Penduduk Berdasarkan Kelurahan di ' + ${namaKota} + ', Kecamatan ' + ${namaKecamatan}">Cari
 				Data Penduduk Berdasarkan Kelurahan di Kota, Kecamatan</h3>
 			</div>

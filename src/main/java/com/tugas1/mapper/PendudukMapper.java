@@ -51,4 +51,20 @@ public interface PendudukMapper {
 			@Result(property = "tanggalLahir", column = "tanggal_lahir"),
 			@Result(property = "jenisKelamin", column = "jenis_kelamin") })
 	List<PendudukModel> selectAllPendudukByIdKelurahan(@Param(value = "idKelurahan") int idKelurahan);
+	
+	@Select("SELECT p.nik, p.nama, p.tanggal_lahir, p.jenis_kelamin FROM penduduk p, keluarga k, kelurahan kl "
+			+ "WHERE p.id_keluarga=k.id AND k.id_kelurahan=kl.id AND kl.id=#{idKelurahan} ORDER BY p.tanggal_lahir DESC LIMIT 1")
+	@Results(value = { @Result(property = "id", column = "id"), @Result(property = "nik", column = "nik"),
+			@Result(property = "nama", column = "nama"),
+			@Result(property = "tanggalLahir", column = "tanggal_lahir"),
+			@Result(property = "jenisKelamin", column = "jenis_kelamin") })
+	PendudukModel selectPendudukTermudaByIdKelurahan(@Param(value = "idKelurahan") int idKelurahan);
+	
+	@Select("SELECT p.nik, p.nama, p.tanggal_lahir, p.jenis_kelamin FROM penduduk p, keluarga k, kelurahan kl "
+			+ "WHERE p.id_keluarga=k.id AND k.id_kelurahan=kl.id AND kl.id=#{idKelurahan} ORDER BY p.tanggal_lahir ASC LIMIT 1")
+	@Results(value = { @Result(property = "id", column = "id"), @Result(property = "nik", column = "nik"),
+			@Result(property = "nama", column = "nama"),
+			@Result(property = "tanggalLahir", column = "tanggal_lahir"),
+			@Result(property = "jenisKelamin", column = "jenis_kelamin") })
+	PendudukModel selectPendudukTertuaByIdKelurahan(@Param(value = "idKelurahan") int idKelurahan);
 }
