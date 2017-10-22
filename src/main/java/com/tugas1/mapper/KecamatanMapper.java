@@ -1,5 +1,7 @@
 package com.tugas1.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -18,4 +20,11 @@ public interface KecamatanMapper {
 			@Result(property="id", column="id")
 	})
 	KecamatanModel selectKecamatan(@Param(value="idKecamatan") int idKecamatan);
+	
+	@Select("SELECT id, nama_kecamatan FROM kecamatan WHERE id_kota = #{idKota}")
+	@Results(value= {
+			@Result(property="id", column="id"),
+			@Result(property="namaKecamatan", column="nama_kecamatan")
+	})
+	List<KecamatanModel> selectKecamatanByIdKota(@Param(value="idKota") int idKota);
 }

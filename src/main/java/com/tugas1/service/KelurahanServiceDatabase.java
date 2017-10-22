@@ -1,10 +1,11 @@
 package com.tugas1.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tugas1.mapper.KelurahanMapper;
-import com.tugas1.model.KeluargaModel;
 import com.tugas1.model.KelurahanModel;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,12 @@ public class KelurahanServiceDatabase implements KelurahanService {
 	public KelurahanModel getKelurahan(int idKelurahan) {
 		log.info("get kelurahan with id {}", idKelurahan);
 		return kelurahanMapper.selectKelurahan(idKelurahan);
+	}
+
+	@Override
+	public List<KelurahanModel> getKelurahanByIdKecamatan(int idKecamatan) {
+		log.info("get kelurahan with id kecamatan {}", idKecamatan);
+		return kelurahanMapper.selectKelurahanByIdKecamatan(idKecamatan);
 	}
 
 	

@@ -1,5 +1,7 @@
 package com.tugas1.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,12 @@ public class KecamatanServiceDatabase implements KecamatanService {
 	public KecamatanModel getKecamatan(int idKecamatan) {
 		log.info("get kecamatan with id {}", idKecamatan);
 		return kecamatanMapper.selectKecamatan(idKecamatan);
+	}
+
+	@Override
+	public List<KecamatanModel> getKecamatanByIdKota(int idKota) {
+		log.info("get kecamatan with id kota {}", idKota);
+		return kecamatanMapper.selectKecamatanByIdKota(idKota);
 	}
 
 	
