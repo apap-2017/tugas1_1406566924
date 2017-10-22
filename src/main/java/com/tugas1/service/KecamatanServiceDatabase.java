@@ -23,9 +23,9 @@ public class KecamatanServiceDatabase implements KecamatanService {
 	}
 
 	@Override
-	public List<KecamatanModel> getKecamatanByIdKota(int idKota) {
+	public List<KecamatanModel> getAllKecamatanByIdKota(int idKota) {
 		log.info("get kecamatan with id kota {}", idKota);
-		return kecamatanMapper.selectKecamatanByIdKota(idKota);
+		return kecamatanMapper.selectAllKecamatanByIdKota(idKota);
 	}
 
 	

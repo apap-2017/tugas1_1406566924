@@ -292,11 +292,31 @@ public class PendudukController {
 	public String searchPenduduk(Model model, @RequestParam(value="kt", required=false) Integer idKota,
 			@RequestParam(value="kc", required=false) Integer idKecamatan,
 			@RequestParam(value="kl", required=false) Integer idKelurahan) {
-		if(idKota != null && idKecamatan != null) {
-			List<KotaModel> listKota = kotaDAO.getAllKota();
-			
-		}
 		
-		return "cari-penduduk";
+		KotaModel kota = kotaDAO.getKota(idKota);
+		KecamatanModel kecamatan = kecamatanDAO.getKecamatan(idKecamatan);
+		KelurahanModel kelurahan = kelurahanDAO.getKelurahan(idKelurahan);
+		model.addAttribute("title", "");
+		
+		List<KelurahanModel> listKelurahan = kelurahanDAO.getAllKelurahanByIdKecamatan(idKecamatan);
+		model.addAttribute("listKelurahan", listKelurahan);
+		
+		List<KecamatanModel> listKecamatan = kecamatanDAO.getAllKecamatanByIdKota(idKota);
+		model.addAttribute("listKecamatan", listKecamatan);
+		
+		List<KotaModel> listKota = kotaDAO.getAllKota();
+		model.addAttribute("listKota", listKota);
+				
+		if(idKota != null && idKecamatan != null && idKelurahan != null) {
+			List<PendudukModel> listPenduduk = pendudukDAO.getAllPendudukByIdKelurahan(idKelurahan);
+			model.addAttribute("listPenduduk", listPenduduk);
+			model.addAttribute("kota", kota);
+			model.addAttribute("kecamatan", kecamatan);
+			model.addAttribute("kelurahan", kelurahan);
+			return "penduduk-daftar";
+		}
+		else {
+			return "cari-penduduk";
+		}
 	}
 }

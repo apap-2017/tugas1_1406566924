@@ -26,5 +26,5 @@ public interface KecamatanMapper {
 			@Result(property="id", column="id"),
 			@Result(property="namaKecamatan", column="nama_kecamatan")
 	})
-	List<KecamatanModel> selectKecamatanByIdKota(@Param(value="idKota") int idKota);
+	List<KecamatanModel> selectAllKecamatanByIdKota(@Param(value="idKota") int idKota);
 }

@@ -7,5 +7,5 @@ import com.tugas1.model.KelurahanModel;
 public interface KelurahanService {
 	KelurahanModel getKelurahan(int idKelurahan);
 	
-	List<KelurahanModel> getKelurahanByIdKecamatan(int idKecamatan);
+	List<KelurahanModel> getAllKelurahanByIdKecamatan(int idKecamatan);
 }

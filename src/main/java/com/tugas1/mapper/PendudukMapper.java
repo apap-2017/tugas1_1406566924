@@ -1,5 +1,7 @@
 package com.tugas1.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -41,4 +43,12 @@ public interface PendudukMapper {
 	"is_wni=#{isWni}, id_keluarga=#{idKeluarga}, agama=#{agama}, pekerjaan=#{pekerjaan}, status_perkawinan=#{statusPerkawinan}," +
 	" status_dalam_keluarga=#{statusDalamKeluarga}, golongan_darah=#{golonganDarah}, is_wafat=#{isWafat} WHERE id=#{id}")
 	void updatePenduduk(PendudukModel penduduk);
+	
+	@Select("SELECT p.nik, p.nama, p.tanggal_lahir, p.jenis_kelamin FROM penduduk p, keluarga k, kelurahan kl, "
+			+ "WHERE p.id_keluarga=k.id AND k.id_kelurahan=kl.id AND kl.id=#{idKelurahan}")
+	@Results(value = { @Result(property = "id", column = "id"), @Result(property = "nik", column = "nik"),
+			@Result(property = "nama", column = "nama"),
+			@Result(property = "tanggalLahir", column = "tanggal_lahir"),
+			@Result(property = "jenisKelamin", column = "jenis_kelamin") })
+	List<PendudukModel> selectAllPendudukByIdKelurahan(@Param(value = "idKelurahan") int idKelurahan);
 }

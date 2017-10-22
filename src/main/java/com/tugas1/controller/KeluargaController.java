@@ -74,12 +74,12 @@ public class KeluargaController {
 	
 	@RequestMapping("/kecamatan")
 	public @ResponseBody List<KecamatanModel> selectKecamatan(Model model, @RequestParam(value="idKota", required=true) int idKota) {
-		return kecamatanDAO.getKecamatanByIdKota(idKota);
+		return kecamatanDAO.getAllKecamatanByIdKota(idKota);
 	}
 	
 	@RequestMapping("/kelurahan")
 	public @ResponseBody List<KelurahanModel> selectKelurahan(Model model, @RequestParam(value="idKecamatan", required=true) int idKecamatan) {
-		return kelurahanDAO.getKelurahanByIdKecamatan(idKecamatan);
+		return kelurahanDAO.getAllKelurahanByIdKecamatan(idKecamatan);
 	}
 	
 	@RequestMapping("/keluarga/tambah/submit")

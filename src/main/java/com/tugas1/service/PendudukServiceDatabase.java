@@ -1,5 +1,7 @@
 package com.tugas1.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,12 @@ public class PendudukServiceDatabase implements PendudukService {
 	public void editPenduduk(PendudukModel penduduk) {
 		log.info("edit penduduk with id {} and nik {}", penduduk.getId(), penduduk.getNik());
 		pendudukMapper.updatePenduduk(penduduk);
+	}
+
+	@Override
+	public List<PendudukModel> getAllPendudukByIdKelurahan(int idKelurahan) {
+		log.info("get all penduduk in id kelurahan {}", idKelurahan);
+		return pendudukMapper.selectAllPendudukByIdKelurahan(idKelurahan);
 	}
 
 	

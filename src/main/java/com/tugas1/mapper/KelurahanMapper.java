@@ -27,5 +27,5 @@ public interface KelurahanMapper {
 			@Result(property="idKota", column="id"),
 			@Result(property="namaKelurahan", column="nama_kelurahan")
 	})
-	List<KelurahanModel> selectKelurahanByIdKecamatan(@Param(value="idKecamatan") int idKecamatan);
+	List<KelurahanModel> selectAllKelurahanByIdKecamatan(@Param(value="idKecamatan") int idKecamatan);
 }
