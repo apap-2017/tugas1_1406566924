@@ -44,7 +44,7 @@ public interface PendudukMapper {
 	" status_dalam_keluarga=#{statusDalamKeluarga}, golongan_darah=#{golonganDarah}, is_wafat=#{isWafat} WHERE id=#{id}")
 	void updatePenduduk(PendudukModel penduduk);
 	
-	@Select("SELECT p.nik, p.nama, p.tanggal_lahir, p.jenis_kelamin FROM penduduk p, keluarga k, kelurahan kl, "
+	@Select("SELECT p.nik, p.nama, p.tanggal_lahir, p.jenis_kelamin FROM penduduk p, keluarga k, kelurahan kl "
 			+ "WHERE p.id_keluarga=k.id AND k.id_kelurahan=kl.id AND kl.id=#{idKelurahan}")
 	@Results(value = { @Result(property = "id", column = "id"), @Result(property = "nik", column = "nik"),
 			@Result(property = "nama", column = "nama"),

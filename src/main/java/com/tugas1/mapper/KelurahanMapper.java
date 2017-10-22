@@ -22,7 +22,7 @@ public interface KelurahanMapper {
 	})
 	KelurahanModel selectKelurahan(@Param(value="idKelurahan") int idKelurahan);
 	
-	@Select("SELECT id, nama_kelurahan FROM kelurahan WHERE id_kecamatan = #{idKecamatan}")
+	@Select("SELECT id, nama_kelurahan FROM kelurahan WHERE id_kecamatan = #{idKecamatan} ORDER by nama_kelurahan")
 	@Results(value= {
 			@Result(property="id", column="id"),
 			@Result(property="namaKelurahan", column="nama_kelurahan")

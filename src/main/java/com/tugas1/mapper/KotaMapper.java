@@ -21,7 +21,7 @@ public interface KotaMapper {
 	})
 	KotaModel selectKota(@Param(value="idKota") int idKota);
 	
-	@Select("SELECT id, nama_kota FROM kota")
+	@Select("SELECT id, nama_kota FROM kota ORDER BY nama_kota")
 	@Results(value = {
 			@Result(property="id", column="id"),
 			@Result(property="namaKota", column="nama_kota")

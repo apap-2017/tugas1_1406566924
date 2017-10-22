@@ -21,7 +21,7 @@ public interface KecamatanMapper {
 	})
 	KecamatanModel selectKecamatan(@Param(value="idKecamatan") int idKecamatan);
 	
-	@Select("SELECT id, nama_kecamatan FROM kecamatan WHERE id_kota = #{idKota}")
+	@Select("SELECT id, nama_kecamatan FROM kecamatan WHERE id_kota = #{idKota} ORDER BY nama_kecamatan")
 	@Results(value= {
 			@Result(property="id", column="id"),
 			@Result(property="namaKecamatan", column="nama_kecamatan")

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<div th:replace="fragments/head :: head"></div>
+</head>
+
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<div class="container">
+		<br/>
+		<h3 th:text="'Lihat Data Penduduk di ' + ${namaKota} + ', Kecamatan ' + ${namaKecamatan} + ', Kelurahan ' + ${namaKelurahan}">Lihat Data keluarga Berdasarkan NIK</h3>
+		<hr/>
+		
+		<br/>
+		<table style="width: 100%" class="table table-hover" id="table">
+			<thead>
+				<tr>
+					<th class="text-center" th:text="'NIK'">NIK</th>
+					<th class="text-center" th:text="'Nama Lengkap'">Nama Lengkap</th>
+					<th class="text-center" th:text="'Jenis Kelamin'">Jenis Kelamin</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="penduduk, iterationStatus: ${listPenduduk}">
+					<td class="text-center" th:text="${penduduk.nik}">NIK</td>
+					<td class="text-center" th:text="${penduduk.nama}">Nama</td>
+					<td class="text-center" th:text="${penduduk.jenisKelamin}==1?'Wanita':'Pria'">Jenis Kelamin</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+<footer>
+	<div th:replace="fragments/footer :: footer"></div>
+</footer>
+</html>

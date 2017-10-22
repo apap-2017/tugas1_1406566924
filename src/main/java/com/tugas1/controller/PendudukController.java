@@ -297,18 +297,21 @@ public class PendudukController {
 
 		if (kt != null) {
 			model.addAttribute("kt", kt);
+			model.addAttribute("namaKota", kotaDAO.getKota(kt).getNamaKota());
 
 			List<KecamatanModel> listKecamatan = kecamatanDAO.getAllKecamatanByIdKota(kt);
 			model.addAttribute("listKecamatan", listKecamatan);
 
 			if (kc != null) {
 				model.addAttribute("kc", kc);
+				model.addAttribute("namaKecamatan", kecamatanDAO.getKecamatan(kc).getNamaKecamatan());
 
 				List<KelurahanModel> listKelurahan = kelurahanDAO.getAllKelurahanByIdKecamatan(kc);
 				model.addAttribute("listKelurahan", listKelurahan);
 
 				if (kl != null) {
 					model.addAttribute("kl", kl);
+					model.addAttribute("namaKelurahan", kelurahanDAO.getKelurahan(kl).getNamaKelurahan());
 
 					List<PendudukModel> listPenduduk = pendudukDAO.getAllPendudukByIdKelurahan(kl);
 					model.addAttribute("listPenduduk", listPenduduk);

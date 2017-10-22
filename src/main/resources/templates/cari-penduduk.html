@@ -11,29 +11,33 @@
 	<div class="container">
 		<div class="container">
 			<br />
-			<h3 th:if="${idKota == null}"
-				th:text="'Cari Data Penduduk Berdasarkan Kota'">Cari Data
-				Penduduk Berdasarkan Kota</h3>
-			<h3 th:if="${idKota != null AND idKecamatan == null}"
-				th:text="'Cari Data Penduduk Berdasarkan Kecamatan di Kota ' + ${idKota}">Cari
-				Data Penduduk Berdasarkan Kecamatan di Kota</h3>
-			<h3 th:if="${idKota != null AND idKecamatan != null AND idKelurahan == null}"
-				th:text="'Cari Data Penduduk Berdasarkan Kelurahan di Kecamatan ' + ${idKecamatan} + ', Kota ' + ${idKota}">Cari
-				Data Penduduk Berdasarkan Kelurahan di Kecamatan, Kota</h3>
+			<div th:if="${idKota == null}">
+				<h3 th:text="'Cari Data Penduduk Berdasarkan Kota'">Cari Data
+					Penduduk Berdasarkan Kota</h3>
+			</div>
+			<div th:if="${idKota != null AND idKecamatan == null}">
+				<h3 th:text="'Cari Data Penduduk Berdasarkan Kecamatan di ' + ${namaKota}">Cari
+					Data Penduduk Berdasarkan Kecamatan di Kota</h3>
+			</div>
+			<div th:if="${idKota != null AND idKecamatan != null AND idKelurahan == null}">
+				<h3 th:text="'Cari Data Penduduk Berdasarkan Kelurahan di ' + ${namaKota} + ', Kecamatan ' + ${namaKecamatan}">Cari
+				Data Penduduk Berdasarkan Kelurahan di Kota, Kecamatan</h3>
+			</div>
 
 			<form class="form-group" action="/penduduk/cari" method="GET">
-				<input th:if="${kt != null}" id="kt" name="kt" th:value="${kt}" type="hidden"></input> 
-				<input th:if="${kc != null}" id="kc" name="kc" th:value="${kc}" type="hidden"></input> 
-				<input th:if="${kl != null}" id="kl" name="kl" th:value="${kl}" type="hidden"></input>
-					
+				<input th:if="${kt != null}" id="kt" name="kt" th:value="${kt}"
+					type="hidden"></input> <input th:if="${kc != null}" id="kc"
+					name="kc" th:value="${kc}" type="hidden"></input> <input
+					th:if="${kl != null}" id="kl" name="kl" th:value="${kl}"
+					type="hidden"></input>
+
 				<div class="form-group">
 					<label>Kota/Kabupaten</label> <select class="form-control col-4"
 						name="kt" id="kt" th:disabled="${kt != null}">
 						<option disabled="disabled" selected="selected" val=""
 							th:text="'Pilih kota/kabupaten...'"></option>
-						<option th:each="kota : ${listKota}"
-							th:value="${kota.id}" th:text="${kota.namaKota}"
-							th:selected="${kota.id == kt}"></option>
+						<option th:each="kota : ${listKota}" th:value="${kota.id}"
+							th:text="${kota.namaKota}" th:selected="${kota.id == kt}"></option>
 					</select>
 				</div>
 				<div class="form-group" th:if="${kt != null}">
@@ -56,7 +60,7 @@
 							th:selected="${kelurahan.id == kl}"></option>
 					</select>
 				</div>
-				
+
 				<button class="btn btn-primary" type="submit" value="Cari">Cari</button>
 			</form>
 		</div>
