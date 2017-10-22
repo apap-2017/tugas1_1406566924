@@ -18,9 +18,28 @@
 <script type="text/javascript" src="/datatables/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="/datatables/js/jquery.dataTables.min.js"></script>
 
+<script type="text/javascript" src="/jquery-ui/jquery-ui.js"></script>
+<script type="text/javascript" src="/jquery-ui/jquery-ui.min.js"></script>
+
+<link type="text/css" rel="stylesheet" href="/jquery-ui/jquery-ui.css" />
+<link type="text/css" rel="stylesheet" href="/jquery-ui/jquery-ui.min.css" />
+<link type="text/css" rel="stylesheet" href="/jquery-ui/jquery-ui.theme.css" />
+<link type="text/css" rel="stylesheet" href="/jquery-ui/jquery-ui.theme.min.css" />
+
 <script type="text/javascript" charset="utf8">
 	$(document).ready(function() {
 		$('#table').DataTable();
 	});
+</script>
+
+<script>
+	$( function() {
+		$( "#datepicker" ).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			showButtonPanel: true,
+			dateFormat: "dd-mm-yy"
+		});
+	} );
 </script>
 </head>

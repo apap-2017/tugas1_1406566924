@@ -1,6 +1,9 @@
 package com.tugas1.controller;
 
-import java.util.List;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -77,10 +80,66 @@ public class PendudukController {
 	
 	@RequestMapping("/penduduk/tambah")
 	public String addPenduduk(Model model) {
-		List<KeluargaModel> listKeluarga = keluargaDAO.getAllKeluarga();
-		model.addAttribute("listKeluarga", listKeluarga);
+//		List<KeluargaModel> listKeluarga = keluargaDAO.getAllKeluarga();
+//		model.addAttribute("listKeluarga", listKeluarga);
 		
 		model.addAttribute("title", "Tambah Penduduk");
 		return "penduduk-tambah";
+	}
+	
+	@RequestMapping("/penduduk/tambah/submit")
+	public String addPendudukSubmit(Model model, @RequestParam(value="nama", required=true) String nama, 
+			@RequestParam(value="tempatLahir", required=true) String tempatLahir,
+			@RequestParam(value="tanggalLahir", required=true) String tanggalLahir,
+			@RequestParam(value="jenisKelamin", required=true) int jenisKelamin,
+			@RequestParam(value="golonganDarah", required=true) String golonganDarah,
+			@RequestParam(value="agama", required=true) String agama,
+			@RequestParam(value="pekerjaan", required=true) String pekerjaan,
+			@RequestParam(value="statusDalamKeluarga", required=true) String statusDalamKeluarga,
+			@RequestParam(value="statusPerkawinan", required=true) String statusPerkawinan,
+			@RequestParam(value="isWni", required=true) int isWni,
+			@RequestParam(value="isWafat", required=true) int isWafat,
+			@RequestParam(value="nomorKK", required=true) String nomorKK) throws ParseException {
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date tglLahir = format.parse(tanggalLahir);
+		
+		KeluargaModel keluarga = keluargaDAO.getKeluargaByNKK(nomorKK);
+		KelurahanModel kelurahan = kelurahanDAO.getKelurahan(keluarga.getIdKelurahan());
+		KecamatanModel kecamatan = kecamatanDAO.getKecamatan(kelurahan.getIdKecamatan());
+		
+		String nik = kecamatan.getKodeKecamatan().substring(0, 6); 
+		
+		/* 
+		 * split tanggal lahir untuk nik 
+		 */
+		String[] tanggalKelahiran = tanggalLahir.split("-");
+		int tanggal = Integer.parseInt(tanggalKelahiran[0]);
+		// jika jenis kelamin wanita, tanggal ditambah 40
+		if(jenisKelamin == 1) {
+			tanggal +=40;
+		}
+		String bulan = tanggalKelahiran[1];
+		String tahun = tanggalKelahiran[2].substring(2, 4);
+		
+		nik = nik + tanggal + bulan + tahun;
+		
+		//cek apa ada yang lahir di kelurahan & tanggal lahir yang sama untuk tentuin 4 digit terakhir (urutan)
+		String nikSama = pendudukDAO.getNikSamaPenduduk(kelurahan.getId(), tglLahir);
+		if(nikSama == null) {
+			nik = nik + "0001";
+		}
+		else {
+			int urutan = Integer.parseInt(nikSama.substring(12)) + 1;
+			String f = new DecimalFormat("0000").format(urutan);
+			nik = nik + f;
+		}
+		
+		PendudukModel penduduk = new PendudukModel(0, nik, nama, tempatLahir, tglLahir, jenisKelamin, isWni, keluarga.getId(), agama, pekerjaan, statusPerkawinan, statusDalamKeluarga, golonganDarah, isWafat);
+		pendudukDAO.addPenduduk(penduduk);
+		
+		model.addAttribute("nik", nik);
+		model.addAttribute("title", "Tambah Penduduk Berhasil");
+		return "penduduk-tambah-berhasil";
 	}
 }

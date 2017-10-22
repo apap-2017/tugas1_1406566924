@@ -15,93 +15,152 @@
 			<small><i>*) Wajib diisi</i></small>
 		</p>
 		<hr />
-		<div class="form-group">
-			<label class="control-label" style="width: 30%">Nama*</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
-				<input type="text" name="nama" class="form-control"
-					required="required" />
+		<form th:action="@{/penduduk/tambah/submit}" method="POST">
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Nama*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <input type="text" name="nama"
+						class="form-control" required="required" />
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label" style="width: 30%">Tempat Lahir*</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
-				<input type="text" name="tempatLahir" class="form-control"
-					required="required" />
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Tempat
+					Lahir*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <input type="text"
+						name="tempatLahir" class="form-control" required="required" />
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label" style="width: 30%">Tanggal
-				Lahir*</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
-				<input type="text" id="date" name="tanggalLahir"
-					class="form-control" required="required" />
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Tanggal
+					Lahir*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <input type="text" id="datepicker"
+						name="tanggalLahir" class="form-control" required="required" />
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label" style="width: 30%">Golongan
-				Darah*</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
-				<select class="form-control" id="golonganDarah" name="golonganDarah"
-					required="required" data-bv-notempty="true"
-					data-bv-notempty-message="*Golongan darah harus dipilih">
-					<option disabled="true" selected="selected" val=""
-						th:text="'Pilih golongan darah...'"></option>
-					<option th:value="'AB'" th:text="'AB'"></option>
-					<option th:value="'A'" th:text="'A'"></option>
-					<option th:value="'B'" th:text="'B'"></option>
-					<option th:value="'O'" th:text="'O'"></option>
-				</select>
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Jenis Kelamin*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <select class="form-control"
+						id="jenisKelamin" name="jenisKelamin" required="required">
+						<option disabled="true" selected="selected" val=""
+							th:text="'Pilih jenis kelamin...'"></option>
+						<option th:value="'1'" th:text="'Wanita'"></option>
+						<option th:value="'0'" th:text="'Pria'"></option>
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label" style="width: 30%">Agama*</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
-				<input type="text" name="agama" class="form-control"
-					required="required" />
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Golongan
+					Darah*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <select class="form-control"
+						id="jenisKelamin" name="jenisKelamin" required="required">
+						<option disabled="true" selected="selected" val=""
+							th:text="'Pilih golongan darah...'"></option>
+						<option th:value="'AB'" th:text="'AB'"></option>
+						<option th:value="'A'" th:text="'A'"></option>
+						<option th:value="'B'" th:text="'B'"></option>
+						<option th:value="'O'" th:text="'O'"></option>
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label" style="width: 30%">Status
-				Perkawinan*</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
-				<select class="form-control" id="statusPerkawinan"
-					name="statusPerkawinan" required="required" data-bv-notempty="true"
-					data-bv-notempty-message="*Status perkawinan harus dipilih">
-					<option disabled="true" selected="selected" val=""
-						th:text="'Pilih status perkawinan...'"></option>
-					<option th:value="'Belum Kawin'" th:text="'Belum Kawin'"></option>
-					<option th:value="'Kawin'" th:text="'Kawin'"></option>
-					<option th:value="'Cerai Hidup'" th:text="'Cerai Hidup'"></option>
-					<option th:value="'Cerai Mati'" th:text="'Cerai Mati'"></option>
-				</select>
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Agama*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <input type="text" name="agama"
+						class="form-control" required="required" />
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label" style="width: 30%">Kewarganegaraan*</label>
-			<div class="input-group">
-				<input type="radio" name="kewarganegaraan" class="form-control col-md-3 col-sm-3 col-xs-6"
-					required="required" th:value="1" th:text="'WNI'" /> <input
-					type="radio" name="kewarganegaraan" class="form-control col-md-3 col-sm-3 col-xs-6"
-					required="required" th:value="0" th:text="'WNA'" />
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Pekerjaan*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <input type="text" name="pekerjaan"
+						class="form-control" required="required" />
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label" style="width: 30%">Status
-				Kematian*</label>
-			<div class="input-group">
-				<input type="radio" name="statusKematian" class="form-control col-md-3 col-sm-3 col-xs-6"
-					required="required" th:value="0" th:text="'Hidup'" /> <input 
-					type="radio" name="statusKematian" class="form-control col-md-3 col-sm-3 col-xs-6"
-					required="required" th:value="1" th:text="'Mati'" />
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Status
+					Dalam Keluarga*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <select class="form-control"
+						id="statusDalamKeluarga" name="statusDalamKeluarga" required="required">
+						<option disabled="true" selected="selected" val=""
+							th:text="'Pilih status dalam keluarga...'"></option>
+						<option th:value="'Kepala Keluarga'" th:text="'Kepala Keluarga'"></option>
+						<option th:value="'Istri'" th:text="'Istri'"></option>
+						<option th:value="'Anak'" th:text="'Anak'"></option>
+						<option th:value="'Famili Lain'" th:text="'Famili Lain'"></option>
+						<option th:value="'Pembantu'" th:text="'Pembantu'"></option>
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Status
+					Perkawinan*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <select class="form-control"
+						id="statusPerkawinan" name="statusPerkawinan" required="required">
+						<option disabled="true" selected="selected" val=""
+							th:text="'Pilih status perkawinan...'"></option>
+						<option th:value="'Belum Kawin'" th:text="'Belum Kawin'"></option>
+						<option th:value="'Kawin'" th:text="'Kawin'"></option>
+						<option th:value="'Cerai Hidup'" th:text="'Cerai Hidup'"></option>
+						<option th:value="'Cerai Mati'" th:text="'Cerai Mati'"></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Kewarganegaraan*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <select class="form-control"
+						id="isWni" name="isWni" required="required">
+						<option disabled="true" selected="selected" val=""
+							th:text="'Pilih kewarganegaraan...'"></option>
+						<option th:value="'1'" th:text="'WNI'"></option>
+						<option th:value="'0'" th:text="'WNA'"></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Status
+					Kematian*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <select class="form-control"
+						id="isWafat" name="isWafat" required="required">
+						<option disabled="true" selected="selected" val=""
+							th:text="'Pilih status kematian...'"></option>
+						<option th:value="'0'" th:text="'Hidup'"></option>
+						<option th:value="'1'" th:text="'Mati'"></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label" style="width: 30%">Nomor KK*</label>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="fa fa-fw fa-pencil"></i></span> <input type="text"
+						name="nomorKK" class="form-control" required="required" />
+				</div>
+			</div>
+			
+			<br/>
+			<button class="btn btn-primary" type="submit" name="action" value="Simpan">Simpan</button>
+		</form>
+
+		<!-- <div class="form-group">
 			<label class="control-label" style="width: 30%">Keluarga*</label>
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-fw fa-pencil"></i></span>
@@ -115,7 +174,7 @@
 					</div>
 				</select>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </body>
 

@@ -8608,13 +8608,14 @@ a.text-dark:focus, a.text-dark:hover {
 	visibility: hidden !important
 }
 
-.footer {
-	position: absolute;
+ .footer {
+	/* position: fixed; */
 	right: 0;
 	bottom: 0;
 	left: 0;
-	padding: 1rem;
+	padding: 0.1rem;
 	background-color: #ddd;
 	text-align: center;
 }
+
 /*# sourceMappingURL=bootstrap.min.css.map */

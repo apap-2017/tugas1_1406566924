@@ -50,4 +50,9 @@ public class PendudukModel {
 		return tl.format(tanggalLahir);
 //		return tanggalLahir.getYear()+1900 + "-" + (tanggalLahir.getMonth()+1) + "-" + birthdate.getDate();
 	}
+
+	public PendudukModel(int i, String nik2, String nama2, String tempatLahir2, Date tglLahir, int jenisKelamin2,
+			int isWni2, int id2, String agama2, String pekerjaan2, String statusPerkawinan2,
+			String statusDalamKeluarga2, String golonganDarah2, int isWafat2) {
+	}
 }
