@@ -38,5 +38,11 @@ public class PendudukServiceDatabase implements PendudukService {
 		return pendudukMapper.selectIdPendudukTerakhir();
 	}
 
+	@Override
+	public void editPenduduk(PendudukModel penduduk) {
+		log.info("edit penduduk with id {} and nik {}", penduduk.getId(), penduduk.getNik());
+		pendudukMapper.updatePenduduk(penduduk);
+	}
+
 	
 }

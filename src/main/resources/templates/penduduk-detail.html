@@ -9,9 +9,10 @@
 	<div th:replace="fragments/navbar :: navbar"></div>
 
 	<div class="container">
-		<br/>
-		<h3 th:text="'Lihat Data Penduduk - ' + ${penduduk.nik}">Lihat Data Penduduk Berdasarkan NIK</h3>
-		<hr/>
+		<br />
+		<h3 th:text="'Lihat Data Penduduk - ' + ${penduduk.nik}">Lihat
+			Data Penduduk Berdasarkan NIK</h3>
+		<hr />
 		<table style="width: 100%;">
 			<tr>
 				<td style="width: 30%">NIK</td>
@@ -23,7 +24,9 @@
 			</tr>
 			<tr>
 				<td style="width: 30%">Tempat/Tanggal Lahir</td>
-				<td th:text="${penduduk.tempatLahir} + ', ' + ${penduduk.getTglLahir()}">Tempat/Tanggal Lahir</td>
+				<td
+					th:text="${penduduk.tempatLahir} + ', ' + ${penduduk.getTglLahir()}">Tempat/Tanggal
+					Lahir</td>
 			</tr>
 			<tr>
 				<td style="width: 30%">Alamat</td>
@@ -50,26 +53,35 @@
 				<td th:text="${penduduk.golonganDarah}">Golongan Darah</td>
 			</tr>
 			<tr>
-				<td style="width:30%">Agama</td>
+				<td style="width: 30%">Agama</td>
 				<td th:text="${penduduk.agama}">Agama</td>
 			</tr>
 			<tr>
-				<td style="width:30%">Status Perkawinan</td>
+				<td style="width: 30%">Status Perkawinan</td>
 				<td th:text="${penduduk.statusPerkawinan}">Status Perkawinan</td>
 			</tr>
 			<tr>
-				<td style="width:30%">Pekerjaan</td>
+				<td style="width: 30%">Pekerjaan</td>
 				<td th:text="${penduduk.pekerjaan}">Pekerjaan</td>
 			</tr>
 			<tr>
-				<td style="width:30%">Kewarganegaraan</td>
+				<td style="width: 30%">Kewarganegaraan</td>
 				<td th:text="${penduduk.isWni}==1?'WNI':'WNA'">Kewarganegaraan</td>
 			</tr>
 			<tr>
-				<td style="width:30%">Status Kematian</td>
-				<td th:text="${penduduk.isWafat}==1?'Wafat':'Hidup'">Status Kematian</td>
+				<td style="width: 30%">Status Kematian</td>
+				<td th:text="${penduduk.isWafat}==1?'Wafat':'Hidup'">Status
+					Kematian</td>
 			</tr>
 		</table>
+	</div>
+	<div class="container">
+		<a th:href="'/penduduk/ubah/'+${penduduk.nik}">
+			<button class="btn btn-primary">Ubah Data Penduduk</button>
+		</a>
+		<a th:href="'/penduduk/mati/'+${penduduk.nik}">
+			<button class="btn btn-danger">Ubah Data Penduduk</button>
+		</a>
 	</div>
 </body>
 

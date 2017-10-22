@@ -1,13 +1,12 @@
 package com.tugas1.mapper;
 
-import java.util.Date;
-
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.tugas1.model.PendudukModel;
 
@@ -32,9 +31,14 @@ public interface PendudukMapper {
 	"#{statusDalamKeluarga}, #{golonganDarah}, #{isWafat})")
 	void insertPenduduk(PendudukModel penduduk);
 	
-	@Select("SELECT nik FROM penduduk WHERE nik LIKE '#{nik}%' ORDER BY id DESC LIMIT 1")
+	@Select("SELECT nik FROM penduduk WHERE nik LIKE '${nik}%' ORDER BY id DESC LIMIT 1")
 	String selectNikSamaPenduduk(@Param(value="nik") String nik);
 	
 	@Select("SELECT id FROM penduduk ORDER BY id DESC LIMIT 1")
 	int selectIdPendudukTerakhir();
+	
+	@Update("UPDATE penduduk SET nik=#{nik}, nama=#{nama}, tempat_lahir=#{tempatLahir}, tanggal_lahir=#{tanggalLahir}, jenis_kelamin=#{jenisKelamin}, " +
+	"is_wni=#{isWni}, id_keluarga=#{idKeluarga}, agama=#{agama}, pekerjaan=#{pekerjaan}, status_perkawinan=#{statusPerkawinan}," +
+	" status_dalam_keluarga=#{statusDalamKeluarga}, golongan_darah=#{golonganDarah}, is_wafat=#{isWafat} WHERE id=#{id}")
+	void updatePenduduk(PendudukModel penduduk);
 }

@@ -10,18 +10,18 @@
 
 	<div class="container">
 		<br />
-		<h3 th:text="'Tambah Penduduk'">Tambah Penduduk</h3>
+		<h3 th:text="'Ubah Penduduk'">Ubah Penduduk</h3>
 		<p style="color: red">
 			<small><i>*) Wajib diisi</i></small>
 		</p>
 		<hr />
-		<form th:action="@{/penduduk/tambah/submit}" method="POST">
+		<form th:action="'/penduduk/ubah/submit'" method="POST">
 			<div class="form-group">
 				<label class="control-label" style="width: 30%">Nama*</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i
 						class="fa fa-fw fa-pencil"></i></span> <input type="text" name="nama"
-						class="form-control" required="required" />
+						class="form-control" required="required" th:value="${penduduk.nama}"/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -30,7 +30,7 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i
 						class="fa fa-fw fa-pencil"></i></span> <input type="text"
-						name="tempatLahir" class="form-control" required="required" />
+						name="tempatLahir" class="form-control" required="required" th:value="${penduduk.tempatLahir}"/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -39,7 +39,7 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i
 						class="fa fa-fw fa-pencil"></i></span> <input type="text" id="datepicker"
-						name="tanggalLahir" class="form-control" required="required" />
+						name="tanggalLahir" class="form-control" required="required" th:value="${penduduk.getTglLahirAngkaFull()}"/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -48,10 +48,10 @@
 					<span class="input-group-addon"><i
 						class="fa fa-fw fa-pencil"></i></span> <select class="form-control"
 						id="jenisKelamin" name="jenisKelamin" required="required">
-						<option disabled="true" selected="selected" val=""
+						<option disabled="true" val=""
 							th:text="'Pilih jenis kelamin...'"></option>
-						<option th:value="'1'" th:text="'Wanita'"></option>
-						<option th:value="'0'" th:text="'Pria'"></option>
+						<option th:selected="${penduduk.jenisKelamin == 1}" th:value="'1'" th:text="'Wanita'"></option>
+						<option th:selected="${penduduk.jenisKelamin == 0}" th:value="'0'" th:text="'Pria'"></option>
 					</select>
 				</div>
 			</div>
@@ -62,15 +62,15 @@
 					<span class="input-group-addon"><i
 						class="fa fa-fw fa-pencil"></i></span> <select class="form-control"
 						id="golonganDarah" name="golonganDarah" required="required">
-						<option disabled="true" selected="selected" val=""
+						<option disabled="true" val=""
 							th:text="'Pilih golongan darah...'"></option>
-						<option th:value="'A+'" th:text="'A+'"></option>
-						<option th:value="'B+'" th:text="'B+'"></option>
-						<option th:value="'O+'" th:text="'O+'"></option>
-						<option th:value="'AB-'" th:text="'AB-'"></option>
-						<option th:value="'A-'" th:text="'A-'"></option>
-						<option th:value="'B-'" th:text="'B-'"></option>
-						<option th:value="'O-'" th:text="'O-'"></option>
+						<option th:selected="${penduduk.golonganDarah == 'A+'}" th:value="'A+'" th:text="'A+'"></option>
+						<option th:selected="${penduduk.golonganDarah == 'B+'}" th:value="'B+'" th:text="'B+'"></option>
+						<option th:selected="${penduduk.golonganDarah == 'O+'}" th:value="'O+'" th:text="'O+'"></option>
+						<option th:selected="${penduduk.golonganDarah == 'AB-'}"  th:value="'AB-'" th:text="'AB-'"></option>
+						<option th:selected="${penduduk.golonganDarah == 'A-'}" th:value="'A-'" th:text="'A-'"></option>
+						<option th:selected="${penduduk.golonganDarah == 'B-'}" th:value="'B-'" th:text="'B-'"></option>
+						<option th:selected="${penduduk.golonganDarah == 'O-'}" th:value="'O-'" th:text="'O-'"></option>
 					</select>
 				</div>
 			</div>
@@ -79,7 +79,7 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i
 						class="fa fa-fw fa-pencil"></i></span> <input type="text" name="agama"
-						class="form-control" required="required" />
+						class="form-control" required="required" th:value="${penduduk.agama}"/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -87,7 +87,7 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i
 						class="fa fa-fw fa-pencil"></i></span> <input type="text" name="pekerjaan"
-						class="form-control" required="required" />
+						class="form-control" required="required" th:value="${penduduk.pekerjaan}"/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -99,11 +99,11 @@
 						id="statusDalamKeluarga" name="statusDalamKeluarga" required="required">
 						<option disabled="true" selected="selected" val=""
 							th:text="'Pilih status dalam keluarga...'"></option>
-						<option th:value="'Kepala Keluarga'" th:text="'Kepala Keluarga'"></option>
-						<option th:value="'Istri'" th:text="'Istri'"></option>
-						<option th:value="'Anak'" th:text="'Anak'"></option>
-						<option th:value="'Famili Lain'" th:text="'Famili Lain'"></option>
-						<option th:value="'Pembantu'" th:text="'Pembantu'"></option>
+						<option th:selected="${penduduk.statusDalamKeluarga == 'Kepala Keluarga'}" th:value="'Kepala Keluarga'" th:text="'Kepala Keluarga'"></option>
+						<option th:selected="${penduduk.statusDalamKeluarga == 'Istri'}" th:value="'Istri'" th:text="'Istri'"></option>
+						<option th:selected="${penduduk.statusDalamKeluarga == 'Anak'}" th:value="'Anak'" th:text="'Anak'"></option>
+						<option th:selected="${penduduk.statusDalamKeluarga == 'Famili Lain'}" th:value="'Famili Lain'" th:text="'Famili Lain'"></option>
+						<option th:selected="${penduduk.statusDalamKeluarga == 'Pembantu'}" th:value="'Pembantu'" th:text="'Pembantu'"></option>
 					</select>
 				</div>
 			</div>
@@ -116,10 +116,10 @@
 						id="statusPerkawinan" name="statusPerkawinan" required="required">
 						<option disabled="true" selected="selected" val=""
 							th:text="'Pilih status perkawinan...'"></option>
-						<option th:value="'Belum Kawin'" th:text="'Belum Kawin'"></option>
-						<option th:value="'Kawin'" th:text="'Kawin'"></option>
-						<option th:value="'Cerai Hidup'" th:text="'Cerai Hidup'"></option>
-						<option th:value="'Cerai Mati'" th:text="'Cerai Mati'"></option>
+						<option th:selected="${penduduk.statusPerkawinan == 'Belum Kawin'}" th:value="'Belum Kawin'" th:text="'Belum Kawin'"></option>
+						<option th:selected="${penduduk.statusPerkawinan == 'Kawin'}" th:value="'Kawin'" th:text="'Kawin'"></option>
+						<option th:selected="${penduduk.statusPerkawinan == 'Cerai Hidup'}" th:value="'Cerai Hidup'" th:text="'Cerai Hidup'"></option>
+						<option th:selected="${penduduk.statusPerkawinan == 'Cerai Mati'}" th:value="'Cerai Mati'" th:text="'Cerai Mati'"></option>
 					</select>
 				</div>
 			</div>
@@ -131,8 +131,8 @@
 						id="isWni" name="isWni" required="required">
 						<option disabled="true" selected="selected" val=""
 							th:text="'Pilih kewarganegaraan...'"></option>
-						<option th:value="'1'" th:text="'WNI'"></option>
-						<option th:value="'0'" th:text="'WNA'"></option>
+						<option th:selected="${penduduk.isWni == 1}" th:value="'1'" th:text="'WNI'"></option>
+						<option th:selected="${penduduk.isWni == 0}" th:value="'0'" th:text="'WNA'"></option>
 					</select>
 				</div>
 			</div>
@@ -145,8 +145,8 @@
 						id="isWafat" name="isWafat" required="required">
 						<option disabled="true" selected="selected" val=""
 							th:text="'Pilih status kematian...'"></option>
-						<option th:value="'0'" th:text="'Hidup'"></option>
-						<option th:value="'1'" th:text="'Mati'"></option>
+						<option th:selected="${penduduk.isWafat == 0}" th:value="'0'" th:text="'Hidup'"></option>
+						<option th:selected="${penduduk.isWafat == 1}" th:value="'1'" th:text="'Mati'"></option>
 					</select>
 				</div>
 			</div>
@@ -155,7 +155,12 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i
 						class="fa fa-fw fa-pencil"></i></span> <input type="text"
-						name="nomorKK" class="form-control" required="required" />
+						name="nomorKK" class="form-control" required="required" th:value="${nomorKK}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<input hidden="text" name="nikLama" class="form-control" required="required" th:value="${nikLama}" />
 				</div>
 			</div>
 			

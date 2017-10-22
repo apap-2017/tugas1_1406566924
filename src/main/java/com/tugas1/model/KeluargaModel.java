@@ -18,7 +18,7 @@ public class KeluargaModel {
 	private String rt;
 	private String rw;
 	private int idKelurahan;
-	private boolean isTidakBerlaku;
+	private int isTidakBerlaku;
 	private List<PendudukModel> anggotaKeluarga;
 	
 	@Builder.Default private String namaKelurahan = "Kelurahan Null";

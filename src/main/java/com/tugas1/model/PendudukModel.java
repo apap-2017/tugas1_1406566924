@@ -41,13 +41,17 @@ public class PendudukModel {
 		SimpleDateFormat tl = new SimpleDateFormat("dd MMMM yyyy");
 		
 		return tl.format(tanggalLahir);
-//		return tanggalLahir.getYear()+1900 + "-" + (tanggalLahir.getMonth()+1) + "-" + birthdate.getDate();
 	}
 	
 	public String getTglLahirAngka() throws ParseException{
 		SimpleDateFormat tl = new SimpleDateFormat("dd-MM-yy");
 		
 		return tl.format(tanggalLahir);
-//		return tanggalLahir.getYear()+1900 + "-" + (tanggalLahir.getMonth()+1) + "-" + birthdate.getDate();
+	}
+	
+	public String getTglLahirAngkaFull() throws ParseException{
+		SimpleDateFormat tl = new SimpleDateFormat("yyyy-MM-dd");
+		
+		return tl.format(tanggalLahir);
 	}
 }

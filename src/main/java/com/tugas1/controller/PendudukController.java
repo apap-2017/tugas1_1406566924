@@ -4,10 +4,12 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -119,10 +121,11 @@ public class PendudukController {
 		if(jenisKelamin == 1) {
 			tanggal +=40;
 		}
+		String tgl = new DecimalFormat("00").format(tanggal);
 		String bulan = tanggalKelahiran[1];
-		String tahun = tanggalKelahiran[0].substring(2, 3);
+		String tahun = tanggalKelahiran[0].substring(2);
 		
-		nik = nik + tanggal + bulan + tahun;
+		nik = nik + tgl + bulan + tahun;
 		System.out.println(nik);
 		
 		//cek apa ada yang lahir di kelurahan & tanggal lahir yang sama untuk tentuin 4 digit terakhir (urutan)
@@ -160,5 +163,123 @@ public class PendudukController {
 		model.addAttribute("nik", nik);
 		model.addAttribute("title", "Tambah Penduduk Berhasil");
 		return "penduduk-tambah-berhasil";
+	}
+	
+	@RequestMapping("/penduduk/ubah/{nik}")
+	public String editPenduduk(Model model, @PathVariable(value="nik") String nik) {
+		PendudukModel penduduk = pendudukDAO.getPenduduk(nik);
+		String nomorKK = keluargaDAO.getKeluargaById(penduduk.getIdKeluarga()).getNomorKK();
+		
+		model.addAttribute("nomorKK", nomorKK);
+		model.addAttribute("nikLama", nik);
+		model.addAttribute("penduduk", penduduk);
+		model.addAttribute("title", "Ubah Penduduk");
+		return "penduduk-ubah";
+	}
+	
+	@RequestMapping("/penduduk/ubah/submit")
+	public String editPendudukSubmit(Model model, @RequestParam(value="nama", required=true) String nama, 
+			@RequestParam(value="tempatLahir", required=true) String tempatLahir,
+			@RequestParam(value="tanggalLahir", required=true) String tanggalLahir,
+			@RequestParam(value="jenisKelamin", required=true) int jenisKelamin,
+			@RequestParam(value="golonganDarah", required=true) String golonganDarah,
+			@RequestParam(value="agama", required=true) String agama,
+			@RequestParam(value="pekerjaan", required=true) String pekerjaan,
+			@RequestParam(value="statusDalamKeluarga", required=true) String statusDalamKeluarga,
+			@RequestParam(value="statusPerkawinan", required=true) String statusPerkawinan,
+			@RequestParam(value="isWni", required=true) int isWni,
+			@RequestParam(value="isWafat", required=true) int isWafat,
+			@RequestParam(value="nomorKK", required=true) String nomorKK,
+			@RequestParam(value="nikLama", required=true) String nikLama) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date tglLahir = format.parse(tanggalLahir);
+		
+		KeluargaModel keluarga = keluargaDAO.getKeluargaByNKK(nomorKK);
+		KelurahanModel kelurahan = kelurahanDAO.getKelurahan(keluarga.getIdKelurahan());
+		KecamatanModel kecamatan = kecamatanDAO.getKecamatan(kelurahan.getIdKecamatan());
+		
+		String nikBaru = kecamatan.getKodeKecamatan().substring(0, 6); 
+		System.out.println(nikBaru);
+		
+		 
+		// split tanggal lahir untuk nik 
+		String[] tanggalKelahiran = tanggalLahir.split("-");
+		int tanggal = Integer.parseInt(tanggalKelahiran[2]);
+		// jika jenis kelamin wanita, tanggal ditambah 40
+		if(jenisKelamin == 1) {
+			tanggal +=40;
+		}
+		String tgl = new DecimalFormat("00").format(tanggal);
+		String bulan = tanggalKelahiran[1];
+		String tahun = tanggalKelahiran[0].substring(2);
+		
+		nikBaru = nikBaru + tgl + bulan + tahun;
+		System.out.println(nikBaru);
+		
+		//cek apa ada yang lahir di kelurahan & tanggal lahir yang sama untuk tentuin 4 digit terakhir (urutan)
+		String nikSama = pendudukDAO.getNikSamaPenduduk(nikBaru);
+		log.info("ada nik sama nih {}", nikSama);
+		
+		if(nikSama == null) {
+			nikBaru = nikBaru + "0001";
+			System.out.println(nikBaru);
+		}
+		else if(nikSama.equals(nikLama)) {
+			nikBaru = nikLama;
+		}
+		else {
+			int urutan = Integer.parseInt(nikSama.substring(12)) + 1;
+			String f = new DecimalFormat("0000").format(urutan);
+			nikBaru = nikBaru + f;
+			System.out.println(nikBaru);
+		}
+		
+		PendudukModel penduduk = pendudukDAO.getPenduduk(nikLama);
+		penduduk.setNik(nikBaru);
+		penduduk.setNama(nama);
+		penduduk.setTempatLahir(tempatLahir);
+		penduduk.setTanggalLahir(tglLahir);
+		penduduk.setJenisKelamin(jenisKelamin);
+		penduduk.setIsWni(isWni);
+		penduduk.setIdKeluarga(keluarga.getId());
+		penduduk.setAgama(agama);
+		penduduk.setPekerjaan(pekerjaan);
+		penduduk.setStatusPerkawinan(statusPerkawinan);
+		penduduk.setStatusDalamKeluarga(statusDalamKeluarga);
+		penduduk.setGolonganDarah(golonganDarah);
+		penduduk.setIsWafat(isWafat);
+		
+		pendudukDAO.editPenduduk(penduduk);
+		
+		model.addAttribute("nikLama", nikLama);
+		model.addAttribute("title", "Ubah Penduduk Berhasil");
+		return "penduduk-ubah-berhasil";
+	}
+	
+	@RequestMapping("/penduduk/mati/{nik}")
+	public String nonaktifkan(@PathVariable(value="nik") String nik, Model model) {
+		PendudukModel penduduk = pendudukDAO.getPenduduk(nik);
+		penduduk.setIsWafat(1);
+		pendudukDAO.editPenduduk(penduduk);
+		
+		KeluargaModel keluarga = keluargaDAO.getKeluargaById(penduduk.getIdKeluarga());
+		List<PendudukModel> anggotaKeluarga = keluarga.getAnggotaKeluarga();
+		int jumlahKeluargaHidup = 0;
+		for(PendudukModel p : anggotaKeluarga) {
+			if(p.getIsWafat()==0) {
+				jumlahKeluargaHidup++;
+			}
+		}
+		if(jumlahKeluargaHidup > 0) {
+			model.addAttribute("title", "Lihat Data Penduduk dengan NIK " + nik);
+			return "redirect:/penduduk?nik=" + nik;
+		}
+		else {
+			keluarga.setIsTidakBerlaku(1);
+			
+			model.addAttribute("nomorKK", keluarga.getNomorKK());
+			model.addAttribute("title", "Data Keluarga Berhasil Dinonaktifkan");
+			return "penduduk-nonaktifkan";
+		}
 	}
 }

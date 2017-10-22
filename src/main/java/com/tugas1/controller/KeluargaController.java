@@ -82,7 +82,7 @@ public class KeluargaController {
 		return kelurahanDAO.getKelurahanByIdKecamatan(idKecamatan);
 	}
 	
-	@RequestMapping("/keluarga/tambah")
+	@RequestMapping("/keluarga/tambah/submit")
 	public String addKeluargaSubmit(Model model, @RequestParam(value="alamat", required=true) String alamat, 
 			@RequestParam(value="rt", required=true) String rt,
 			@RequestParam(value="rw", required=true) String rw,

@@ -6,6 +6,7 @@ public interface PendudukService {
 	PendudukModel getPenduduk(String nik);
 	
 	void addPenduduk(PendudukModel penduduk);
+	void editPenduduk(PendudukModel penduduk);
 	
 	String getNikSamaPenduduk(String nik);
 	
