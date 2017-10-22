@@ -1,7 +1,5 @@
 package com.tugas1.service;
 
-import java.util.Date;
-
 import com.tugas1.model.PendudukModel;
 
 public interface PendudukService {
@@ -9,5 +7,7 @@ public interface PendudukService {
 	
 	void addPenduduk(PendudukModel penduduk);
 	
-	String getNikSamaPenduduk(int idKelurahan, Date tanggalLahir);
+	String getNikSamaPenduduk(int idKelurahan, String tanggalLahir);
+	
+	int getIdPendudukTerakhir();
 }

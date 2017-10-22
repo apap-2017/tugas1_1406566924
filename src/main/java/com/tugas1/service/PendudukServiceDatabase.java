@@ -29,9 +29,15 @@ public class PendudukServiceDatabase implements PendudukService {
 	}
 
 	@Override
-	public String getNikSamaPenduduk(int idKelurahan, Date tanggalLahir) {
+	public String getNikSamaPenduduk(int idKelurahan, String tanggalLahir) {
 		log.info("get nik that same in idKelurahan {} and tanggalLahir {}", idKelurahan, tanggalLahir);
 		return pendudukMapper.selectNikSamaPenduduk(idKelurahan, tanggalLahir);
+	}
+
+	@Override
+	public int getIdPendudukTerakhir() {
+		log.info("get id penduduk terakhir");
+		return pendudukMapper.selectIdPendudukTerakhir();
 	}
 
 	

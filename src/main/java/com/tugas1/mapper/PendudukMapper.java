@@ -26,12 +26,15 @@ public interface PendudukMapper {
 			@Result(property = "isWafat", column = "is_wafat") })
 	PendudukModel selectPenduduk(@Param(value = "nik") String nik);
 
-	@Insert("INSERT INTO penduduk (nik, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, is_wni, id_keluarga, agama, " +
-	"pekerjaan, status_perkawinan, status_dalam_keluarga, golongan_darah, is_wafat) VALUES (#{nik}, #{nama}, #{tempatLahir}, " +
+	@Insert("INSERT INTO penduduk (id, nik, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, is_wni, id_keluarga, agama, " +
+	"pekerjaan, status_perkawinan, status_dalam_keluarga, golongan_darah, is_wafat) VALUES (#{id}, #{nik}, #{nama}, #{tempatLahir}, " +
 	"#{tanggalLahir}, #{jenisKelamin}, #{isWni}, #{idKeluarga}, #{agama}, #{pekerjaan}, #{statusPerkawinan}, " +
-	"#{statusDalamKeluarga}, #{golonganDarah}, #{isWafat}")
+	"#{statusDalamKeluarga}, #{golonganDarah}, #{isWafat})")
 	void insertPenduduk(PendudukModel penduduk);
 	
-	@Select("SELECT nik FROM penduduk p, keluarga k, kelurahan kl WHERE p.id_keluarga=k.id, k.id_kelurahan=kl.id, k.id=#{idKelurahan}, p.tanggal_lahir=#{tanggalLahir} ORDER BY p.id DESC LIMIT 1")
-	String selectNikSamaPenduduk(@Param(value="idKelurahan") int idKelurahan, @Param(value="tanggalLahir") Date tanggalLahir);
+	@Select("SELECT p.nik FROM penduduk p, keluarga k, kelurahan kl WHERE p.id_keluarga=k.id AND k.id_kelurahan=kl.id AND k.id=#{idKelurahan} AND p.tanggal_lahir=#{tanggalLahir} ORDER BY p.id DESC LIMIT 1")
+	String selectNikSamaPenduduk(@Param(value="idKelurahan") int idKelurahan, @Param(value="tanggalLahir") String tanggalLahir);
+	
+	@Select("SELECT id FROM penduduk ORDER BY id DESC LIMIT 1")
+	int selectIdPendudukTerakhir();
 }

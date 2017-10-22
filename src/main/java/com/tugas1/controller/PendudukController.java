@@ -109,33 +109,53 @@ public class PendudukController {
 		KecamatanModel kecamatan = kecamatanDAO.getKecamatan(kelurahan.getIdKecamatan());
 		
 		String nik = kecamatan.getKodeKecamatan().substring(0, 6); 
+		System.out.println(nik);
 		
 		/* 
 		 * split tanggal lahir untuk nik 
 		 */
 		String[] tanggalKelahiran = tanggalLahir.split("-");
-		int tanggal = Integer.parseInt(tanggalKelahiran[0]);
+		int tanggal = Integer.parseInt(tanggalKelahiran[2]);
 		// jika jenis kelamin wanita, tanggal ditambah 40
 		if(jenisKelamin == 1) {
 			tanggal +=40;
 		}
 		String bulan = tanggalKelahiran[1];
-		String tahun = tanggalKelahiran[2].substring(2, 4);
+		String tahun = tanggalKelahiran[0].substring(2, 3);
 		
 		nik = nik + tanggal + bulan + tahun;
+		System.out.println(nik);
 		
 		//cek apa ada yang lahir di kelurahan & tanggal lahir yang sama untuk tentuin 4 digit terakhir (urutan)
-		String nikSama = pendudukDAO.getNikSamaPenduduk(kelurahan.getId(), tglLahir);
+		String nikSama = pendudukDAO.getNikSamaPenduduk(kelurahan.getId(), tanggalLahir);
 		if(nikSama == null) {
 			nik = nik + "0001";
+			System.out.println(nik);
 		}
 		else {
 			int urutan = Integer.parseInt(nikSama.substring(12)) + 1;
 			String f = new DecimalFormat("0000").format(urutan);
 			nik = nik + f;
+			System.out.println(nik);
 		}
 		
-		PendudukModel penduduk = new PendudukModel(0, nik, nama, tempatLahir, tglLahir, jenisKelamin, isWni, keluarga.getId(), agama, pekerjaan, statusPerkawinan, statusDalamKeluarga, golonganDarah, isWafat);
+		int id = pendudukDAO.getIdPendudukTerakhir() + 1;
+		
+		PendudukModel penduduk = new PendudukModel(id, nik, nama, tempatLahir, tglLahir, jenisKelamin, isWni, keluarga.getId(), agama, pekerjaan, statusPerkawinan, statusDalamKeluarga, golonganDarah, isWafat, null, null, null, null, null, null, null);
+		penduduk.setNik(nik);
+		penduduk.setNama(nama);
+		penduduk.setTempatLahir(tempatLahir);
+		penduduk.setTanggalLahir(tglLahir);
+		penduduk.setJenisKelamin(jenisKelamin);
+		penduduk.setIsWni(isWni);
+		penduduk.setIdKeluarga(keluarga.getId());
+		penduduk.setAgama(agama);
+		penduduk.setPekerjaan(pekerjaan);
+		penduduk.setStatusPerkawinan(statusPerkawinan);
+		penduduk.setStatusDalamKeluarga(statusDalamKeluarga);
+		penduduk.setGolonganDarah(golonganDarah);
+		penduduk.setIsWafat(isWafat);
+		
 		pendudukDAO.addPenduduk(penduduk);
 		
 		model.addAttribute("nik", nik);
