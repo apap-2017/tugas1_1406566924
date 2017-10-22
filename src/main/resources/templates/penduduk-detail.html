@@ -79,8 +79,8 @@
 		<a th:href="'/penduduk/ubah/'+${penduduk.nik}">
 			<button class="btn btn-primary">Ubah Data Penduduk</button>
 		</a>
-		<a th:href="'/penduduk/mati/'+${penduduk.nik}">
-			<button class="btn btn-danger">Ubah Data Penduduk</button>
+		<a th:if="${penduduk.isWafat == 0}" th:href="'/penduduk/mati/'+${penduduk.nik}">
+			<button class="btn btn-danger">Nonaktifkan Penduduk</button>
 		</a>
 	</div>
 </body>

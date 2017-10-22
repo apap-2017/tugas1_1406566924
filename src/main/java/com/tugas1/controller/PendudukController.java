@@ -1,5 +1,7 @@
 package com.tugas1.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -264,6 +266,7 @@ public class PendudukController {
 		
 		KeluargaModel keluarga = keluargaDAO.getKeluargaById(penduduk.getIdKeluarga());
 		List<PendudukModel> anggotaKeluarga = keluarga.getAnggotaKeluarga();
+		log.info("jumlah anggota keluarga {}", anggotaKeluarga);
 		int jumlahKeluargaHidup = 0;
 		for(PendudukModel p : anggotaKeluarga) {
 			if(p.getIsWafat()==0) {
@@ -276,10 +279,24 @@ public class PendudukController {
 		}
 		else {
 			keluarga.setIsTidakBerlaku(1);
+			log.info("keluarga {}", keluarga);
+			keluargaDAO.editKeluarga(keluarga);
 			
 			model.addAttribute("nomorKK", keluarga.getNomorKK());
 			model.addAttribute("title", "Data Keluarga Berhasil Dinonaktifkan");
-			return "penduduk-nonaktifkan";
+			return "keluarga-dinonaktifkan";
 		}
+	}
+	
+	@RequestMapping("/penduduk/cari")
+	public String searchPenduduk(Model model, @RequestParam(value="kt", required=false) Integer idKota,
+			@RequestParam(value="kc", required=false) Integer idKecamatan,
+			@RequestParam(value="kl", required=false) Integer idKelurahan) {
+		if(idKota != null && idKecamatan != null) {
+			List<KotaModel> listKota = kotaDAO.getAllKota();
+			
+		}
+		
+		return "cari-penduduk";
 	}
 }

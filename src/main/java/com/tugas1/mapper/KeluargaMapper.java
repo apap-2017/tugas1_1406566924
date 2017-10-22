@@ -2,12 +2,14 @@ package com.tugas1.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.tugas1.model.KeluargaModel;
 import com.tugas1.model.PendudukModel;
@@ -22,7 +24,8 @@ public interface KeluargaMapper {
 			@Result(property="rw", column="rw"),
 			@Result(property="idKelurahan", column="id_kelurahan"),
 			@Result(property="isTidakBerlaku", column="is_tidak_berlaku"),
-			@Result(property="id", column="id")
+			@Result(property="id", column="id"),
+			@Result(property="anggotaKeluarga", column="id", javaType = List.class, many = @Many(select = "selectAnggotaKeluarga"))
 	})
 	KeluargaModel selectKeluargaById(@Param(value="idKeluarga") int idKeluarga);
 	
@@ -70,5 +73,13 @@ public interface KeluargaMapper {
 	
 	@Select("SELECT id FROM keluarga ORDER BY id DESC LIMIT 1")
 	int selectIdKeluargaTerakhir();
+	
+	@Insert("INSERT INTO keluarga (id, nomor_kk, alamat, rt, rw, id_kelurahan, is_tidak_berlaku) VALUES (#{id}, #{nomorKK}, "
+			+ "#{alamat}, #{rt}, #{rw}, #{idKelurahan})")
+	void insertKeluarga(KeluargaModel keluarga);
+	
+	@Update("UPDATE keluarga SET nomor_kk=#{nomorKK}, alamat=#{alamat}, rt=#{rt}, rw=#{rw}, id_kelurahan=#{idKelurahan}, "
+			+ "is_tidak_berlaku=#{isTidakBerlaku} WHERE id=#{id}")
+	void updateKeluarga(KeluargaModel keluarga);
 }
 	

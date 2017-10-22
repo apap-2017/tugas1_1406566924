@@ -46,5 +46,17 @@ public class KeluargaServiceDatabase implements KeluargaService {
 		return keluargaMapper.selectIdKeluargaTerakhir();
 	}
 
+	@Override
+	public void addKeluarga(KeluargaModel keluarga) {
+		log.info("add keluarga with nkk {}", keluarga.getNomorKK());
+		keluargaMapper.insertKeluarga(keluarga);
+	}
+
+	@Override
+	public void editKeluarga(KeluargaModel keluarga) {
+		log.info("update keluarga with id {} and nkk {}", keluarga.getId(), keluarga.getNomorKK());
+		keluargaMapper.updateKeluarga(keluarga);
+	}
+
 	
 }
