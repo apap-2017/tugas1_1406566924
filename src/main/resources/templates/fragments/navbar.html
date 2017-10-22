@@ -35,6 +35,12 @@
 				<a class="nav-item nav-link"
 					th:classappend="${#httpServletRequest.getRequestURI() == '/penduduk/cari' ? 'active':''}"
 					th:href="@{/penduduk/cari}">Cari Data</a> 
+				<a class="nav-item nav-link"
+					th:classappend="${#httpServletRequest.getRequestURI() == '/penduduk/tambah' ? 'active':''}"
+					th:href="@{/penduduk/tambah}">Tambah Penduduk</a> 
+				<a class="nav-item nav-link"
+					th:classappend="${#httpServletRequest.getRequestURI() == '/keluarga/tambah' ? 'active':''}"
+					th:href="@{/keluarga/tambah}">Tambah Keluarga</a> 
 			</div>
 		</div>
 	</nav>
