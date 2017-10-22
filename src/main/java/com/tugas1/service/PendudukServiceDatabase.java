@@ -1,7 +1,5 @@
 package com.tugas1.service;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +27,9 @@ public class PendudukServiceDatabase implements PendudukService {
 	}
 
 	@Override
-	public String getNikSamaPenduduk(int idKelurahan, String tanggalLahir) {
-		log.info("get nik that same in idKelurahan {} and tanggalLahir {}", idKelurahan, tanggalLahir);
-		return pendudukMapper.selectNikSamaPenduduk(idKelurahan, tanggalLahir);
+	public String getNikSamaPenduduk(String nik) {
+		log.info("get the lastest nik that same with {} in the first 12 characters", nik);
+		return pendudukMapper.selectNikSamaPenduduk(nik);
 	}
 
 	@Override

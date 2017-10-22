@@ -7,7 +7,7 @@ public interface PendudukService {
 	
 	void addPenduduk(PendudukModel penduduk);
 	
-	String getNikSamaPenduduk(int idKelurahan, String tanggalLahir);
+	String getNikSamaPenduduk(String nik);
 	
 	int getIdPendudukTerakhir();
 }

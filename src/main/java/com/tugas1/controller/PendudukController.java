@@ -111,9 +111,8 @@ public class PendudukController {
 		String nik = kecamatan.getKodeKecamatan().substring(0, 6); 
 		System.out.println(nik);
 		
-		/* 
-		 * split tanggal lahir untuk nik 
-		 */
+		 
+		// split tanggal lahir untuk nik 
 		String[] tanggalKelahiran = tanggalLahir.split("-");
 		int tanggal = Integer.parseInt(tanggalKelahiran[2]);
 		// jika jenis kelamin wanita, tanggal ditambah 40
@@ -127,7 +126,7 @@ public class PendudukController {
 		System.out.println(nik);
 		
 		//cek apa ada yang lahir di kelurahan & tanggal lahir yang sama untuk tentuin 4 digit terakhir (urutan)
-		String nikSama = pendudukDAO.getNikSamaPenduduk(kelurahan.getId(), tanggalLahir);
+		String nikSama = pendudukDAO.getNikSamaPenduduk(nik);
 		if(nikSama == null) {
 			nik = nik + "0001";
 			System.out.println(nik);

@@ -1,5 +1,8 @@
 package com.tugas1.controller;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,5 +80,56 @@ public class KeluargaController {
 	@RequestMapping("/kelurahan")
 	public @ResponseBody List<KelurahanModel> selectKelurahan(Model model, @RequestParam(value="idKecamatan", required=true) int idKecamatan) {
 		return kelurahanDAO.getKelurahanByIdKecamatan(idKecamatan);
+	}
+	
+	@RequestMapping("/keluarga/tambah")
+	public String addKeluargaSubmit(Model model, @RequestParam(value="alamat", required=true) String alamat, 
+			@RequestParam(value="rt", required=true) String rt,
+			@RequestParam(value="rw", required=true) String rw,
+			@RequestParam(value="kelurahan", required=true) int idKelurahan) {
+	
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date tanggalPembuatan = new Date();
+		
+		String hariIni = format.format(tanggalPembuatan);
+		
+		KelurahanModel kelurahan = kelurahanDAO.getKelurahan(idKelurahan);
+		
+		String nomorKK = kelurahan.getKodeKelurahan().substring(0, 6);
+		
+		// split tanggal pembuatan/hari ini
+		String[] tglPembuatan = hariIni.split("-");
+		String tanggal = tglPembuatan[2];
+		String bulan = tglPembuatan[1];
+		String tahun = tglPembuatan[0].substring(2, 3);
+		
+		nomorKK = nomorKK + tanggal + bulan + tahun;
+		
+		//cek apa ada yang dibuat di kelurahan & tanggal pembuatan yang sama untuk tentuin 4 digit terakhir (urutan)
+		String nkkSama = keluargaDAO.getNkkSamaKeluarga(nomorKK);
+		if(nkkSama == null) {
+			nomorKK = nomorKK + "0001";
+		}
+		else {
+			int urutan = Integer.parseInt(nkkSama.substring(12)) + 1;
+			String f = new DecimalFormat("0000").format(urutan);
+			nomorKK = nomorKK + f;
+		}
+		
+		int id = keluargaDAO.getIdKeluargaTerakhir() + 1;
+		
+		KeluargaModel keluarga = new KeluargaModel();
+		keluarga.setId(id);
+		keluarga.setNomorKK(nomorKK);
+		keluarga.setAlamat(alamat);
+		keluarga.setRt(rt);
+		keluarga.setRw(rw);
+		keluarga.setIdKelurahan(idKelurahan);
+		
+		// keluargaDAO.addKeluarga(keluarga);
+		
+		model.addAttribute("nkk", nomorKK);
+		model.addAttribute("title", "Tambah Keluarga Berhasil");
+		return "keluarga-tambah-berhasil";
 	}
 }

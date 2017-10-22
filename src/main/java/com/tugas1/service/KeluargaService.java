@@ -9,4 +9,8 @@ public interface KeluargaService {
 	KeluargaModel getKeluargaByNKK(String nomorKK);
 	
 	List<KeluargaModel> getAllKeluarga();
+	
+	String getNkkSamaKeluarga(String nomorKK);
+	
+	int getIdKeluargaTerakhir();
 }

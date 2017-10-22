@@ -34,5 +34,17 @@ public class KeluargaServiceDatabase implements KeluargaService {
 		return keluargaMapper.selectAllKeluarga();
 	}
 
+	@Override
+	public String getNkkSamaKeluarga(String nomorKK) {
+		log.info("get the lastest nik that same with {} in the first 12 characters", nomorKK);
+		return keluargaMapper.selectNkkSamaKeluarga(nomorKK);
+	}
+
+	@Override
+	public int getIdKeluargaTerakhir() {
+		log.info("get id keluarga terakhir");
+		return keluargaMapper.selectIdKeluargaTerakhir();
+	}
+
 	
 }

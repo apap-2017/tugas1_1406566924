@@ -64,5 +64,11 @@ public interface KeluargaMapper {
 			@Result(property="nomorKK", column="nomor_kk")
 	})
 	List<KeluargaModel> selectAllKeluarga();
+	
+	@Select("SELECT nomor_kk FROM keluarga WHERE nomor_kk LIKE '#{nomorKK}%' ORDER BY id DESC LIMIT 1")
+	String selectNkkSamaKeluarga(@Param(value="nomorKK") String nomorKK);
+	
+	@Select("SELECT id FROM keluarga ORDER BY id DESC LIMIT 1")
+	int selectIdKeluargaTerakhir();
 }
 	

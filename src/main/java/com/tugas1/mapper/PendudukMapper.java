@@ -32,8 +32,8 @@ public interface PendudukMapper {
 	"#{statusDalamKeluarga}, #{golonganDarah}, #{isWafat})")
 	void insertPenduduk(PendudukModel penduduk);
 	
-	@Select("SELECT p.nik FROM penduduk p, keluarga k, kelurahan kl WHERE p.id_keluarga=k.id AND k.id_kelurahan=kl.id AND k.id=#{idKelurahan} AND p.tanggal_lahir=#{tanggalLahir} ORDER BY p.id DESC LIMIT 1")
-	String selectNikSamaPenduduk(@Param(value="idKelurahan") int idKelurahan, @Param(value="tanggalLahir") String tanggalLahir);
+	@Select("SELECT nik FROM penduduk WHERE nik LIKE '#{nik}%' ORDER BY id DESC LIMIT 1")
+	String selectNikSamaPenduduk(@Param(value="nik") String nik);
 	
 	@Select("SELECT id FROM penduduk ORDER BY id DESC LIMIT 1")
 	int selectIdPendudukTerakhir();
